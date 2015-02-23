@@ -1,0 +1,24 @@
+.h5p-collage-change-image {
+  font-size: 14px;
+  position: absolute;
+  top: 0.25em;
+  left: 0.25em;
+  background: rgba(0,0,0,0.5);
+  color: #f0f0f0;
+  padding: 0.25em 0.5em;
+  outline: none;
+  cursor: default;
+}
+.h5p-collage-change-image:hover,
+.h5p-collage-change-image:focus {
+  background: rgba(0,0,0,0.8);
+}
+.h5p-collage-change-image:active {
+  color: #c0c0c0;
+}
+.h5p-collage-image {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  cursor: -webkit-grab;
+}
