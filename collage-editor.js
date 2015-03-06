@@ -50,10 +50,7 @@ H5P.CollageEditor = (function ($, contentId, Collage) {
          * Upload new image
          */
         var changeImage = function () {
-          fileUpload({
-            name: 'collageClip',
-            type: 'image'
-          }, function () {
+          fileUpload(function () {
             clip.loading();
           }, function (err, result) {
             if (!err) {
@@ -178,14 +175,38 @@ H5P.CollageEditor = (function ($, contentId, Collage) {
       }
     };
 
+
     /**
      * @private
-     * @param {Object} field
      * @param {Function} change
      * @param {Function} done
      */
-    var fileUpload = function (field, change, done) {
-      $('<iframe/>', {
+    var fileUpload = function (change, done) {
+      getIframe(function (iframe) {
+        onChange(iframe, change);
+        onResponse(iframe, done);
+        iframe.$file.click();
+      });
+    };
+
+    var iframes = [];
+    var getIframe = function (found) {
+      // Find iframe
+      for (var i = 0; i < iframes.length; i++) {
+        var iframe = iframes[i];
+        if (!iframe.inUse) {
+          iframe.$element.unbind('load');
+          iframe.$file.unbind('change');
+          found(iframe);
+          return;
+        }
+      }
+
+      newIframe(found);
+    };
+
+    var newIframe = function (done) {
+      var $element = $('<iframe/>', {
         css: {
           position: 'absolute',
           width: '1px',
@@ -194,34 +215,23 @@ H5P.CollageEditor = (function ($, contentId, Collage) {
           border: 0,
           overflow: 'hidden'
         },
-        on: {
+        one: {
           load: function () {
-            var $body = $(this).contents().find('body');
-            var response = $body.text();
-
-            // Try to parse repsonse
-            if (response) {
-              try {
-                var result = JSON.parse(response);
-                if (result.error !== undefined) {
-                  throw(result.error);
-                }
-
-                // Return response
-                done(null, result);
-                return;
-              }
-              catch (err) {
-                done(err);
-              }
-            }
-
             // Create upload form
-            var $form = $('<form/>', {
-              method: 'post',
-              enctype: 'multipart/form-data',
-              action: H5PEditor.getAjaxUrl('files')
-            });
+            var iframe = {
+              inUse: false,
+              $element: $(this),
+              $form: $('<form/>', {
+                method: 'post',
+                enctype: 'multipart/form-data',
+                action: H5PEditor.getAjaxUrl('files')
+              })
+            };
+
+            var field = {
+              name: 'collageClip',
+              type: 'image'
+            };
 
             // Determine allowed file mimes
             var mimes;
@@ -233,38 +243,86 @@ H5P.CollageEditor = (function ($, contentId, Collage) {
             }
 
             // Create input fields
-            $file = $('<input/>', {
+            iframe.$file = $('<input/>', {
               type: 'file',
               name: 'file',
               accept: mimes,
-              on: {
-                change: function () {
-                  change();
-                  $form.submit();
-                }
-              },
-              appendTo: $form
+              appendTo: iframe.$form
             });
             $('<input/>', {
               type: 'hidden',
               name: 'field',
               value: JSON.stringify(field),
-              appendTo: $form
+              appendTo: iframe.$form
             });
             $('<input/>', {
               type: 'hidden',
               name: 'contentId',
               value: contentId ? contentId : 0,
-              appendTo: $form
+              appendTo: iframe.$form
             });
 
-            $form.appendTo($body);
-            $file.click();
+            var $body = iframe.$element.contents().find('body');
+            iframe.$form.appendTo($body);
+
+            iframes.push(iframe);
+            if (done) {
+              done(iframe);
+            }
           }
         },
         appendTo: 'body'
       });
     };
+
+    var onResponse = function (iframe, done) {
+      iframe.$element.on('load', function () {
+        var $body = iframe.$element.contents().find('body');
+        var response = $body.text();
+        removeIframe(iframe);
+
+        // Try to parse repsonse
+        if (response) {
+          try {
+            var result = JSON.parse(response);
+            if (result.error !== undefined) {
+              throw(result.error);
+            }
+
+            // Return response
+            done(null, result);
+            return;
+          }
+          catch (err) {
+            done(err);
+          }
+        }
+      });
+    };
+
+    var removeIframe = function (iframe) {
+      iframe.$element.remove();
+      for (var i = 0; i < iframes.length; i++) {
+        if (iframes[i] === iframe)  {
+          iframes.splice(i, 1);
+          break;
+        }
+      }
+      if (iframes.length === 0) {
+        // Always keep an iframe ready
+        newIframe();
+      }
+    };
+
+    var onChange = function (iframe, change) {
+      iframe.$file.on('change', function () {
+        iframe.inUse = true;
+        change();
+        iframe.$form.submit();
+      });
+    };
+
+    newIframe(); // Init upload
 
     return CollageEditor;
 })(H5P.jQuery, H5PEditor.contentId);
