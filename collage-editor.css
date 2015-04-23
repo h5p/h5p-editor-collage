@@ -22,3 +22,35 @@
   -webkit-user-drag: none;
   cursor: -webkit-grab;
 }
+
+.h5p-collage-editor-layout-selector {
+  overflow: hidden;
+  margin-bottom: 0.5em;
+}
+.h5p-collage-editor-layout-preview {
+  float: left;
+  width: 4em;
+  height: 3em;
+  margin: 0 1em 1em 0;
+  outline: none;
+}
+.h5p-collage-editor-layout-preview .h5p-collage-col:after {
+  display: block;
+  background: #ddd;
+  width: 100%;
+  height: 100%;
+  content: " ";
+}
+.h5p-collage-editor-layout-preview:hover .h5p-collage-col:after,
+.h5p-collage-editor-layout-preview:focus .h5p-collage-col:after {
+  background: #afafaf;
+}
+.h5p-collage-editor-layout-preview:active .h5p-collage-col:after {
+  background: #668fbd;
+}
+.h5p-collage-editor-layout-preview.h5p-collage-selected-layout .h5p-collage-col:after {
+  background: #666;
+}
+.h5p-collage-editor .h5peditor-label {
+  margin-bottom: 0.5em;
+}
