@@ -3,15 +3,16 @@
   position: absolute;
   top: 0.25em;
   left: 0.25em;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0,0,0,0.7);
   color: #f0f0f0;
   padding: 0.25em 0.5em;
   outline: none;
   cursor: default;
+  border-radius: 0.25em;
 }
 .h5p-collage-change-image:hover,
 .h5p-collage-change-image:focus {
-  background: rgba(0,0,0,0.8);
+  background: rgba(0,0,0,0.85);
 }
 .h5p-collage-change-image:active {
   color: #c0c0c0;
@@ -20,7 +21,12 @@
   user-select: none;
   -webkit-user-select: none;
   -webkit-user-drag: none;
+  cursor: grab;
   cursor: -webkit-grab;
+}
+.h5p-collage-grabbed {
+  cursor: grabbing;
+  cursor: -webkit-grabbing;
 }
 
 .h5p-collage-editor-layout-selector {

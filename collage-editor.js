@@ -62,12 +62,16 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
           // Display loading screen
           clip.loading();
         }, function (err, result) {
-          if (!err) {
-            // Update clip
-            clip.update(result);
+          // Update clip
+          clip.update(result);
 
+          if (!err) {
             // Make sure we display a warning before changing templates.
             layoutSelector.warn = true;
+          }
+          else {
+            H5P.error(err);
+            alert(CollageEditor.t('uploadError'));
           }
         });
       };
@@ -468,5 +472,6 @@ H5PEditor.language['H5PEditor.Collage'] = {
     confirmReset: 'Are you sure you wish to change the tiling layout? This will reset the preview.',
     sameAsSpacing: 'Same as tile spacing',
     noFrame: 'No frame',
+    uploadError: 'Unable to upload image. The file is probably to large.'
   }
 };
