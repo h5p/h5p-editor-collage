@@ -231,7 +231,7 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
    * @returns {string} UI text
    */
   CollageEditor.t = function (key, placeholders) {
-    return H5PEditor.t('H5P.CollageEditor', key, placeholders);
+    return H5PEditor.t('H5PEditor.Collage', key, placeholders);
   };
 
   /**
