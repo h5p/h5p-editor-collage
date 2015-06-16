@@ -1,4 +1,4 @@
-H5P Collage Editor
+H5P Editor Collage
 ==========
 
 Makes it easy to combine images and texts into beautiful collages.

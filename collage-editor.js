@@ -1,19 +1,18 @@
-H5P.CollageEditor = (function ($, contentId, Collage) {
+H5PEditor.CollageEditor = (function ($, contentId, Collage) {
 
   /**
    * Collage Editor widget.
    *
-   * @class
-   * @namespace H5P
+   * @class H5P.CollageEditor
    * @param {Object} parent
    * @param {Object} field
    * @param {Object} params
-   * @param {Function} setValue
+   * @param {function} setValue
    */
   function CollageEditor(parent, field, params, setValue) {
     var self = this;
 
-    // Editor is loaded before Collage :-(
+    // In case the editor is loaded before the Collage.
     Collage = H5P.Collage;
 
     // Get field options from semantics
@@ -46,27 +45,39 @@ H5P.CollageEditor = (function ($, contentId, Collage) {
       passreadyCallbacks = false;
     });
 
+    // Editor wrapper
     $wrapper = $('<div/>', {
       'class': 'h5p-collage-editor'
     });
 
+    // Create the collage for live preview
     var collage = new Collage(parent.params, contentId);
+    var layoutSelector;
 
-    /**
-     * Handle clips added to collage.
-     */
+    // Handle clips being added to the collage.
     collage.on('clipAdded', function (event) {
       var clip = event.data;
 
+      if (!clip.empty()) {
+        // Make sure we display a warning before changing templates.
+        layoutSelector.warn = true;
+      }
+
       /**
        * Upload new image
+       * @private
        */
       var changeImage = function () {
         fileUpload(function () {
+          // Display loading screen
           clip.loading();
         }, function (err, result) {
           if (!err) {
+            // Update clip
             clip.update(result);
+
+            // Make sure we display a warning before changing templates.
+            layoutSelector.warn = true;
           }
         });
       };
@@ -91,19 +102,18 @@ H5P.CollageEditor = (function ($, contentId, Collage) {
       });
       clip.append($changeButton);
 
-      // Enable users to zoom and "cut" the image.
+      // Enable users to zoom and pan the image.
       clip.enableRepositioning();
     });
 
     /**
+     * Appends the collage editor widget
      *
-     *
-     * @public
-     * @param {jQuery} $container
+     * @param {H5P.jQuery} $container
      */
     this.appendTo = function ($container) {
       // Add tiling layout selector
-      var layoutSelector = new CollageEditor.LayoutSelector($wrapper, layoutField.label, layoutField.options, params.template);
+      layoutSelector = new CollageEditor.LayoutSelector($wrapper, layoutField.label, layoutField.options, params.template);
       layoutSelector.on('layoutChanged', function (event) {
         params.template = event.data;
         params.clips = [];
@@ -123,15 +133,40 @@ H5P.CollageEditor = (function ($, contentId, Collage) {
           change: function () {
             params.options.spacing = this.value;
             collage.setSpacing(this.value);
+            if (params.options.frame) {
+              collage.setFrame(params.options.spacing);
+            }
           }
         },
         appendTo: $wrapper
       });
-      // TODO: Color selector?
 
       // Add frame options
-      // TODO: frameField
-      //params.options.frame
+      CollageEditor.addLabel($wrapper, frameField.label);
+      $('<div class="h5p-collage-frame-selector"><label><input type="radio" name="h5p-collage-frame" value="1"' + (params.options.frame ? ' checked="checked"' : '') + '>' + CollageEditor.t('sameAsSpacing') + '</label><br/><label><input type="radio" name="h5p-collage-frame" value="0"' + (params.options.frame ? '' : ' checked="checked"') + '>' + CollageEditor.t('noFrame') + '</label></div>')
+        .appendTo($wrapper)
+        .find('input').change(function () {
+          params.options.frame = (this.value === '1');
+          collage.setFrame(params.options.frame ? params.options.spacing : 0);
+        });
+
+      // Add height adjustment
+      CollageEditor.addLabel($wrapper, heightField.label);
+      $('<input/>', {
+        'class': 'h5p-collage-height-selector',
+        type: 'range',
+        min: heightField.min,
+        max: heightField.max,
+        step: (heightField.max - heightField.min) / 20,
+        value: params.options.heightRatio,
+        on: {
+          change: function () {
+            params.options.heightRatio = this.value;
+            collage.setHeight(this.value);
+          }
+        },
+        appendTo: $wrapper
+      });
 
       // Add preview/editor label
       CollageEditor.addLabel($wrapper, field.label);
@@ -143,7 +178,12 @@ H5P.CollageEditor = (function ($, contentId, Collage) {
       });
       collage.attach($preview);
 
-      // TODO: add field description?
+      // Add description
+      $('<div/>', {
+        'class': 'h5peditor-field-description',
+        text: field.description,
+        appendTo: $wrapper
+      });
 
       // Attach wrapper to container
       $wrapper.appendTo($container);
@@ -155,8 +195,7 @@ H5P.CollageEditor = (function ($, contentId, Collage) {
     /**
      * Collect callbacks to run when the editor is done assembling.
      *
-     * @public
-     * @param {Function} ready callback
+     * @param {function} ready callback
      */
     this.ready = function (ready) {
       if (passreadyCallbacks) {
@@ -170,8 +209,7 @@ H5P.CollageEditor = (function ($, contentId, Collage) {
     /**
      * Checks if this field and all child fields are valid.
      *
-     * @public
-     * @returns {Boolean}
+     * @returns {boolean}
      */
     this.validate = function () {
       return true;
@@ -179,8 +217,6 @@ H5P.CollageEditor = (function ($, contentId, Collage) {
 
     /**
      * Remove this field and all child fields from the editor.
-     *
-     * @public
      */
     this.remove = function () {
       $wrapper.remove();
@@ -190,10 +226,9 @@ H5P.CollageEditor = (function ($, contentId, Collage) {
   /**
    * Get translations from the CollageEditor namespace.
    *
-   * @public
-   * @param {String} key
+   * @param {string} key
    * @param {Object} placeholders
-   * @returns {String} UI text
+   * @returns {string} UI text
    */
   CollageEditor.t = function (key, placeholders) {
     return H5PEditor.t('H5P.CollageEditor', key, placeholders);
@@ -202,8 +237,7 @@ H5P.CollageEditor = (function ($, contentId, Collage) {
   /**
    * Simple helper for creating labels.
    *
-   * @public
-   * @param {jQuery} $container
+   * @param {H5P.jQuery} $container
    * @param {string} text label
    */
   CollageEditor.addLabel = function ($container, text) {
@@ -218,7 +252,7 @@ H5P.CollageEditor = (function ($, contentId, Collage) {
    * Look for field with given name in given collection.
    *
    * @private
-   * @param {String} name of field
+   * @param {string} name of field
    * @param {Array} fields collection to look in
    * @returns {Object} field object
    */
@@ -231,9 +265,11 @@ H5P.CollageEditor = (function ($, contentId, Collage) {
   };
 
   /**
+   * New file upload.
+   *
    * @private
-   * @param {Function} change
-   * @param {Function} done
+   * @param {function} change
+   * @param {function} done
    */
   var fileUpload = function (change, done) {
     getIframe(function (iframe) {
@@ -244,6 +280,13 @@ H5P.CollageEditor = (function ($, contentId, Collage) {
   };
 
   var iframes = [];
+
+  /**
+   * Find available iframe for uploading.
+   *
+   * @private
+   * @param {function} found
+   */
   var getIframe = function (found) {
     // Find iframe
     for (var i = 0; i < iframes.length; i++) {
@@ -259,6 +302,12 @@ H5P.CollageEditor = (function ($, contentId, Collage) {
     newIframe(found);
   };
 
+  /**
+   * Create new iframe for uploading.
+   *
+   * @private
+   * @param {function} done
+   */
   var newIframe = function (done) {
     var $element = $('<iframe/>', {
       css: {
@@ -329,6 +378,13 @@ H5P.CollageEditor = (function ($, contentId, Collage) {
     });
   };
 
+  /**
+   * Handle iframe loaded events.
+   *
+   * @private
+   * @param {HTMLElementObject} iframe
+   * @param {function} done
+   */
   var onResponse = function (iframe, done) {
     iframe.$element.on('load', function () {
       var $body = iframe.$element.contents().find('body');
@@ -354,6 +410,12 @@ H5P.CollageEditor = (function ($, contentId, Collage) {
     });
   };
 
+  /**
+   * Remove iframe after uploading.
+   *
+   * @private
+   * @param {HTMLElementObject} iframe
+   */
   var removeIframe = function (iframe) {
     iframe.$element.remove();
     for (var i = 0; i < iframes.length; i++) {
@@ -368,6 +430,13 @@ H5P.CollageEditor = (function ($, contentId, Collage) {
     }
   };
 
+  /**
+   * Handle file selecting.
+   *
+   * @private
+   * @param {HTMLElementObject} iframe
+   * @param {function} change
+   */
   var onChange = function (iframe, change) {
     iframe.$file.on('change', function () {
       iframe.inUse = true;
@@ -376,7 +445,8 @@ H5P.CollageEditor = (function ($, contentId, Collage) {
     });
   };
 
-  newIframe(); // Init upload
+  // Init upload
+  newIframe();
 
   return CollageEditor;
 })(H5P.jQuery, H5PEditor.contentId);
@@ -387,6 +457,8 @@ H5PEditor.widgets.collage = H5P.CollageEditor;
 // Add strings for l10n
 H5PEditor.language['H5P.CollageEditor'] = {
   libraryStrings: {
-    confirmReset: 'Are you sure you wish to change the tiling layout? This will reset the preview.'
+    confirmReset: 'Are you sure you wish to change the tiling layout? This will reset the preview.',
+    sameAsSpacing: 'Same as tile spacing',
+    noFrame: 'No frame',
   }
 };

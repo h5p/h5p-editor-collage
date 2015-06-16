@@ -1,23 +1,23 @@
-/**
- * Extends H5P.CollageEditor with a Layout Selector class.
- */
-(function ($, EventDispatcher, CollageEditor) {
+(function ($, EventDispatcher, CollageEditor, Collage) {
 
   /**
    * A small widget that makes it easy to switch between collage layouts.
    *
-   * @class
-   * @namespace H5P.CollageEditor
-   * @param {jQuery} $container
+   * @class H5PEditor.Collage.LayoutSelector
+   * @extends H5P.EventDispatcher
+   * @param {H5P.jQuery} $container
    * @param {string} label
    * @param {Array} layouts
    * @param {string} selectedDefault
    */
-  CollageEditor.LayoutSelector = function ($container, label, layouts, selectedDefault) {
+  CollageEditor.LayoutSelector = function ($container, label, layouts, selectedDefault, clips) {
     var self = this;
 
     // Initialize event inheritance
     EventDispatcher.call(self);
+
+    // In case editor is loaded before collage
+    Collage = H5P.Collage;
 
     // Create wrapper
     var $wrapper = $('<div/>', {
@@ -65,17 +65,17 @@
      * Selects the given layout.
      *
      * @private
-     * @param {jQuery} $preview
+     * @param {H5P.jQuery} $preview
      * @param {string} layout
      */
     var selectLayout = function ($preview, layout) {
-      // TODO: Only display confirm dialog if the user actually has uploaded something.
-      if (!confirm(CollageEditor.t('confirmReset'))) {
+      if (self.warn && !confirm(CollageEditor.t('confirmReset'))) {
         return;
       }
 
       $selected.removeClass('h5p-collage-selected-layout');
       $selected = $preview.addClass('h5p-collage-selected-layout');
+      self.warn = false;
 
       self.trigger('layoutChanged', layout);
     };
@@ -91,4 +91,4 @@
   CollageEditor.LayoutSelector.prototype = Object.create(EventDispatcher.prototype);
   CollageEditor.LayoutSelector.prototype.constructor = CollageEditor.LayoutSelector;
 
-})(H5P.jQuery, H5P.EventDispatcher, H5P.CollageEditor);
+})(H5P.jQuery, H5P.EventDispatcher, H5PEditor.Collage);

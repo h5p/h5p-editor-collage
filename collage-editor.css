@@ -54,3 +54,13 @@
 .h5p-collage-editor .h5peditor-label {
   margin-bottom: 0.5em;
 }
+.h5p-collage-editor .h5peditor-field-description {
+  margin-top: 0.25em;
+}
+.h5p-collage-spacing-selector,
+.h5p-collage-frame-selector {
+  margin-bottom: 1.5em;
+}
+.h5p-collage-frame-selector input {
+  margin: 0.5em;
+}
