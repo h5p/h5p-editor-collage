@@ -107,6 +107,57 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
     });
 
     /**
+     * Make sure number appears with two decimals.
+     *
+     * @param {number} value
+     * @returns {string}
+     */
+    var toHuman = function (value) {
+      value = value.toString();
+      var dot = value.indexOf('.');
+      if (dot === -1) {
+        value += '.00';
+      }
+      else if (value[dot + 2] === undefined) {
+        value += '0';
+      }
+      return value;
+    };
+
+    /**
+     * @private
+     */
+    var rangeSelector = function (field, change, step) {
+      var last = toHuman(params.options[field.name]);
+      CollageEditor.addLabel($wrapper, field.label);
+      $('<input/>', {
+        'class': 'h5p-collage-' + field.name + '-selector',
+        type: 'range',
+        min: field.min,
+        max: field.max,
+        step: (field.max - field.min) / step,
+        value: params.options[field.name],
+        on: {
+          change: function () {
+            params.options[field.name] = this.value;
+            last = toHuman(this.value);
+            $value.html(last);
+            change(this.value);
+          },
+          input: function () {
+            $value.html(toHuman(this.value) + ' (' + last + ')');
+          }
+        },
+        appendTo: $wrapper
+      });
+      var $value = $('<div/>', {
+        'class': 'h5p-collage-selector-preview',
+        html: last,
+        appendTo: $wrapper
+      });
+    };
+
+    /**
      * Appends the collage editor widget
      *
      * @param {H5P.jQuery} $container
@@ -121,25 +172,7 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
       });
 
       // Add spacing selector
-      CollageEditor.addLabel($wrapper, spacingField.label);
-      $('<input/>', {
-        'class': 'h5p-collage-spacing-selector',
-        type: 'range',
-        min: spacingField.min,
-        max: spacingField.max,
-        step: (spacingField.max - spacingField.min) / 20,
-        value: params.options.spacing,
-        on: {
-          change: function () {
-            params.options.spacing = this.value;
-            collage.setSpacing(this.value);
-            if (params.options.frame) {
-              collage.setFrame(params.options.spacing);
-            }
-          }
-        },
-        appendTo: $wrapper
-      });
+      rangeSelector(spacingField, collage.setSpacing, 20);
 
       // Add frame options
       CollageEditor.addLabel($wrapper, frameField.label);
@@ -151,22 +184,7 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
         });
 
       // Add height adjustment
-      CollageEditor.addLabel($wrapper, heightField.label);
-      $('<input/>', {
-        'class': 'h5p-collage-height-selector',
-        type: 'range',
-        min: heightField.min,
-        max: heightField.max,
-        step: (heightField.max - heightField.min) / 20,
-        value: params.options.heightRatio,
-        on: {
-          change: function () {
-            params.options.heightRatio = this.value;
-            collage.setHeight(this.value);
-          }
-        },
-        appendTo: $wrapper
-      });
+      rangeSelector(heightField, collage.setHeight, 38);
 
       // Add preview/editor label
       CollageEditor.addLabel($wrapper, field.label);

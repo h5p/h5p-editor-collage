@@ -64,3 +64,9 @@
 .h5p-collage-frame-selector input {
   margin: 0.5em;
 }
+.h5p-collage-selector-preview {
+  display: inline-block;
+  vertical-align: top;
+  margin: 0.25em 0.5em;
+  font-size: 0.95em;
+}
