@@ -54,7 +54,7 @@
         },
         appendTo: $wrapper
       });
-      new Collage.Template($layout, 0.25, layout.value);
+      (new Collage.Template(0.25, layout.value)).appendTo($layout);
 
       if (layout.value === selectedDefault) {
         $selected = $layout;
