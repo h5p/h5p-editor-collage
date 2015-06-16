@@ -22,19 +22,9 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
     var spacingField = findField('spacing', optionsField.fields);
     var frameField = findField('frame', optionsField.fields);
 
-    // Set default params if none is given
+    // Set params if none is given
     if (params === undefined) {
-      // Get defaults from semantics
-      params = {
-        template: layoutField.default,
-        options: {
-          heightRatio: heightField.default,
-          spacing: spacingField.default,
-          frame: frameField.default
-        },
-        clips: []
-      };
-
+      params = {};
       setValue(field, params);
     }
 
@@ -51,7 +41,7 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
     });
 
     // Create the collage for live preview
-    var collage = new Collage(parent.params, contentId);
+    var collage = new Collage({collage: params}, contentId);
     var layoutSelector;
 
     // Handle clips being added to the collage.
