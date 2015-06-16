@@ -1,4 +1,4 @@
-H5PEditor.CollageEditor = (function ($, contentId, Collage) {
+H5PEditor.Collage = (function ($, contentId, Collage) {
 
   /**
    * Collage Editor widget.
@@ -452,10 +452,10 @@ H5PEditor.CollageEditor = (function ($, contentId, Collage) {
 })(H5P.jQuery, H5PEditor.contentId);
 
 // Register widget
-H5PEditor.widgets.collage = H5P.CollageEditor;
+H5PEditor.widgets.collage = H5PEditor.Collage;
 
 // Add strings for l10n
-H5PEditor.language['H5P.CollageEditor'] = {
+H5PEditor.language['H5PEditor.Collage'] = {
   libraryStrings: {
     confirmReset: 'Are you sure you wish to change the tiling layout? This will reset the preview.',
     sameAsSpacing: 'Same as tile spacing',
