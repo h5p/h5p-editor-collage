@@ -21,11 +21,11 @@
   user-select: none;
   -webkit-user-select: none;
   -webkit-user-drag: none;
-  cursor: grab;
+  cursor: url(grab.cur), move;
   cursor: -webkit-grab;
 }
 .h5p-collage-grabbed {
-  cursor: grabbing;
+  cursor: url(grabbing.cur), move;
   cursor: -webkit-grabbing;
 }
 
