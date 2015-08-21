@@ -37,7 +37,7 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
 
     // Editor wrapper
     $wrapper = $('<div/>', {
-      'class': 'h5p-collage-editor'
+      'class': 'h5p-collage-editor-wrapper'
     });
 
     // Create the collage for live preview
@@ -122,10 +122,14 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
      * @private
      */
     var rangeSelector = function (field, change, step) {
+      var $itemWrapper = getItemWrapper(field.name, field.label);
+      var $inner = $('<div/>', {
+        'class': 'h5p-collage-inner-wrapper',
+        appendTo: $itemWrapper
+      });
       var last = toHuman(params.options[field.name]);
-      CollageEditor.addLabel($wrapper, field.label);
       $('<input/>', {
-        'class': 'h5p-collage-' + field.name + '-selector',
+        'class': 'h5p-collage-range-input',
         type: 'range',
         min: field.min,
         max: field.max,
@@ -142,12 +146,12 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
             $value.html(toHuman(this.value) + ' (' + last + ')');
           }
         },
-        appendTo: $wrapper
+        appendTo: $inner
       });
       var $value = $('<div/>', {
         'class': 'h5p-collage-selector-preview',
         html: last,
-        appendTo: $wrapper
+        appendTo: $inner
       });
     };
 
@@ -158,20 +162,34 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
      */
     this.appendTo = function ($container) {
       // Add tiling layout selector
-      layoutSelector = new CollageEditor.LayoutSelector($wrapper, layoutField.label, layoutField.options, params.template);
+      var $layoutSelectorWrapper = getItemWrapper(layoutField.name, layoutField.label);
+      layoutSelector = new CollageEditor.LayoutSelector($layoutSelectorWrapper, layoutField.options, params.template);
       layoutSelector.on('layoutChanged', function (event) {
         params.template = event.data;
         params.clips = [];
         collage.setLayout(params.template);
       });
 
+      // Attach Collage preview
+      var $collageWrapper = getItemWrapper(field.name, field.label);
+      $preview = $('<div/>', {
+        'class': 'h5p-collage-preview',
+        appendTo: $collageWrapper
+      });
+      collage.attach($preview);
+      $('<div/>', {
+        'class': 'h5peditor-field-description',
+        text: field.description,
+        appendTo: $collageWrapper
+      });
+
       // Add spacing selector
       rangeSelector(spacingField, collage.setSpacing, 20);
 
       // Add frame options
-      CollageEditor.addLabel($wrapper, frameField.label);
+      var $frameOptionWrapper = getItemWrapper(frameField.name, frameField.label);
       $('<div class="h5p-collage-frame-selector"><label><input type="radio" name="h5p-collage-frame" value="1"' + (params.options.frame ? ' checked="checked"' : '') + '>' + CollageEditor.t('sameAsSpacing') + '</label><br/><label><input type="radio" name="h5p-collage-frame" value="0"' + (params.options.frame ? '' : ' checked="checked"') + '>' + CollageEditor.t('noFrame') + '</label></div>')
-        .appendTo($wrapper)
+        .appendTo($frameOptionWrapper)
         .find('input').change(function () {
           params.options.frame = (this.value === '1');
           collage.setFrame(params.options.frame ? params.options.spacing : 0);
@@ -179,23 +197,6 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
 
       // Add height adjustment
       rangeSelector(heightField, collage.setHeight, 38);
-
-      // Add preview/editor label
-      CollageEditor.addLabel($wrapper, field.label);
-
-      // Attach Collage preview
-      $preview = $('<div/>', {
-        'class': 'h5p-collage-preview',
-        appendTo: $wrapper
-      });
-      collage.attach($preview);
-
-      // Add description
-      $('<div/>', {
-        'class': 'h5peditor-field-description',
-        text: field.description,
-        appendTo: $wrapper
-      });
 
       // Attach wrapper to container
       $wrapper.appendTo($container);
@@ -233,6 +234,29 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
     this.remove = function () {
       $wrapper.remove();
     };
+
+    /**
+     * @param {string} name
+     * @param {string} [label]
+     * @param {string} [description]
+     * @returns {H5P.jQuery}
+     */
+    var getItemWrapper = function (name, label) {
+      var $itemWrapper = $('<div/>', {
+        'class': 'h5p-collage-' + name + '-item',
+        appendTo: $wrapper
+      });
+
+      if (label) {
+        $('<label/>', {
+          'class': 'h5peditor-label',
+          text: label,
+          appendTo: $itemWrapper
+        });
+      }
+
+      return $itemWrapper;
+    };
   }
 
   /**
@@ -244,20 +268,6 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
    */
   CollageEditor.t = function (key, placeholders) {
     return H5PEditor.t('H5PEditor.Collage', key, placeholders);
-  };
-
-  /**
-   * Simple helper for creating labels.
-   *
-   * @param {H5P.jQuery} $container
-   * @param {string} text label
-   */
-  CollageEditor.addLabel = function ($container, text) {
-    $('<label/>', {
-      'class': 'h5peditor-label',
-      text: text,
-      appendTo: $container
-    });
   };
 
   /**

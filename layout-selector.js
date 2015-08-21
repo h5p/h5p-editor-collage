@@ -6,11 +6,10 @@
    * @class H5PEditor.Collage.LayoutSelector
    * @extends H5P.EventDispatcher
    * @param {H5P.jQuery} $container
-   * @param {string} label
    * @param {Array} layouts
    * @param {string} selectedDefault
    */
-  CollageEditor.LayoutSelector = function ($container, label, layouts, selectedDefault, clips) {
+  CollageEditor.LayoutSelector = function ($container, layouts, selectedDefault, clips) {
     var self = this;
 
     // Initialize event inheritance
@@ -23,9 +22,6 @@
     var $wrapper = $('<div/>', {
       'class': 'h5p-collage-editor-layout-selector'
     });
-
-    // Add label
-    CollageEditor.addLabel($wrapper, label);
 
     // Keep track of selected layout
     var $selected;

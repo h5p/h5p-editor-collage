@@ -58,22 +58,38 @@
 .h5p-collage-editor-layout-preview.h5p-collage-selected-layout .h5p-collage-col:after {
   background: #666;
 }
+.h5p-collage-editor-wrapper {
+  overflow: hidden;
+}
 .h5p-collage-editor .h5peditor-label {
   margin-bottom: 0.5em;
 }
 .h5p-collage-editor .h5peditor-field-description {
   margin-top: 0.25em;
 }
-.h5p-collage-spacing-selector,
-.h5p-collage-frame-selector {
-  margin-bottom: 1.5em;
-}
-.h5p-collage-frame-selector input {
-  margin: 0.5em;
-}
 .h5p-collage-selector-preview {
   display: inline-block;
   vertical-align: top;
   margin: 0.25em 0.5em;
   font-size: 0.95em;
+}
+.h5p-collage-spacing-item,
+.h5p-collage-frame-item,
+.h5p-collage-heightRatio-item {
+  float: left;
+  margin: 0.5em 2em 0 0;
+}
+
+.h5p-collage-editor .h5peditor-form {
+  padding: 0;
+  background-color: #e9e9e9;
+}
+.h5p-collage-template-item {
+  padding: 0.5em 1em;
+} 
+.h5p-collage-inner-wrapper,
+.h5p-collage-editor-layout-selector {
+  padding: 0.5em;
+  background-color: #fff;
+  box-shadow: 0 0 0.25em #999 inset;
 }
