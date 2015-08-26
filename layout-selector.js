@@ -32,17 +32,17 @@
      * @private
      * @param {string} layout
      */
-    var addLayout = function (layout) {
+    var addLayout = function (layout) {
       var $layout = $('<div/>', {
         'class': 'h5p-collage-editor-layout-preview' + (layout.value === selectedDefault ? ' h5p-collage-selected-layout' : ''),
         tabIndex: '0',
         role: 'button',
         title: layout.label,
         on: {
-          click: function () {
+          click: function () {
             selectLayout($layout, layout.value);
           },
-          keypress: function (event) {
+          keypress: function (event) {
             if (event.keyCode === 32 || event.charCode === 32) {
               selectLayout($layout, layout.value);
             }
@@ -64,7 +64,7 @@
      * @param {H5P.jQuery} $preview
      * @param {string} layout
      */
-    var selectLayout = function ($preview, layout) {
+    var selectLayout = function ($preview, layout) {
       if (self.warn && !confirm(CollageEditor.t('confirmReset'))) {
         return;
       }
@@ -77,7 +77,7 @@
     };
 
     // Add options
-    for (var i = 0; i < layouts.length; i++) {
+    for (var i = 0; i < layouts.length; i++) {
       addLayout(layouts[i]);
     }
     $wrapper.appendTo($container);

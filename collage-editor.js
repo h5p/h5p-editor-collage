@@ -136,7 +136,7 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
         step: (field.max - field.min) / step,
         value: params.options[field.name],
         on: {
-          change: function () {
+          change: function () {
             params.options[field.name] = this.value;
             last = toHuman(this.value);
             $value.html(last);
@@ -190,7 +190,7 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
       var $frameOptionWrapper = getItemWrapper(frameField.name, frameField.label);
       $('<div class="h5p-collage-frame-selector"><label><input type="radio" name="h5p-collage-frame" value="1"' + (params.options.frame ? ' checked="checked"' : '') + '>' + CollageEditor.t('sameAsSpacing') + '</label><br/><label><input type="radio" name="h5p-collage-frame" value="0"' + (params.options.frame ? '' : ' checked="checked"') + '>' + CollageEditor.t('noFrame') + '</label></div>')
         .appendTo($frameOptionWrapper)
-        .find('input').change(function () {
+        .find('input').change(function () {
           params.options.frame = (this.value === '1');
           collage.setFrame(params.options.frame ? params.options.spacing : 0);
         });
@@ -241,7 +241,7 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
      * @param {string} [description]
      * @returns {H5P.jQuery}
      */
-    var getItemWrapper = function (name, label) {
+    var getItemWrapper = function (name, label) {
       var $itemWrapper = $('<div/>', {
         'class': 'h5p-collage-' + name + '-item',
         appendTo: $wrapper
@@ -294,7 +294,7 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
    * @param {function} done
    */
   var fileUpload = function (change, done) {
-    getIframe(function (iframe) {
+    getIframe(function (iframe) {
       onChange(iframe, change);
       onResponse(iframe, done);
       iframe.$file.click();
@@ -309,7 +309,7 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
    * @private
    * @param {function} found
    */
-  var getIframe = function (found) {
+  var getIframe = function (found) {
     // Find iframe
     for (var i = 0; i < iframes.length; i++) {
       var iframe = iframes[i];
@@ -330,7 +330,7 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
    * @private
    * @param {function} done
    */
-  var newIframe = function (done) {
+  var newIframe = function (done) {
     var $element = $('<iframe/>', {
       css: {
         position: 'absolute',
@@ -341,7 +341,7 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
         overflow: 'hidden'
       },
       one: {
-        load: function () {
+        load: function () {
           // Create upload form
           var iframe = {
             inUse: false,
@@ -408,7 +408,7 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
    * @param {function} done
    */
   var onResponse = function (iframe, done) {
-    iframe.$element.on('load', function () {
+    iframe.$element.on('load', function () {
       var $body = iframe.$element.contents().find('body');
       var response = $body.text();
       removeIframe(iframe);
@@ -460,7 +460,7 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
    * @param {function} change
    */
   var onChange = function (iframe, change) {
-    iframe.$file.on('change', function () {
+    iframe.$file.on('change', function () {
       iframe.inUse = true;
       change();
       iframe.$form.submit();
