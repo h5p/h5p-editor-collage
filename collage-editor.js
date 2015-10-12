@@ -101,12 +101,24 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
     });
 
     /**
+     * Converts em value to a more human value.
+     *
+     * @private
+     * @param {number} value
+     * @returns {number}
+     */
+    var humanInt = function (value) {
+      return parseInt(value * 10);
+    };
+
+    /**
      * Make sure number appears with two decimals.
      *
+     * @private
      * @param {number} value
      * @returns {string}
      */
-    var toHuman = function (value) {
+    var humanFloat = function (value) {
       value = value.toString();
       var dot = value.indexOf('.');
       if (dot === -1) {
@@ -119,15 +131,26 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
     };
 
     /**
+     * Inserts a number range selector.
+     *
      * @private
+     * @param {object} field Appearence
+     * @param {string} field.name
+     * @param {string} field.label
+     * @param {number} field.min
+     * @param {number} field.max
+     * @param {function} change Callback when new value is selected
+     * @param {number} step
+     * @param {function} humanize Post processing of value
+     * @returns {H5P.jQuery} Wrapper of the element
      */
-    var rangeSelector = function (field, change, step) {
+    var rangeSelector = function (field, change, step, humanize) {
       var $itemWrapper = getItemWrapper(field.name, field.label);
       var $inner = $('<div/>', {
         'class': 'h5p-collage-inner-wrapper',
         appendTo: $itemWrapper
       });
-      var last = toHuman(params.options[field.name]);
+      var last = humanize(params.options[field.name]);
       $('<input/>', {
         'class': 'h5p-collage-range-input',
         type: 'range',
@@ -138,12 +161,12 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
         on: {
           change: function () {
             params.options[field.name] = this.value;
-            last = toHuman(this.value);
+            last = humanize(this.value);
             $value.html(last);
             change(this.value);
           },
           input: function () {
-            $value.html(toHuman(this.value) + ' (' + last + ')');
+            $value.html(humanize(this.value));
           }
         },
         appendTo: $inner
@@ -153,6 +176,33 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
         html: last,
         appendTo: $inner
       });
+      return $itemWrapper;
+    };
+
+    /**
+     * Will align all the fields by setting the same height.
+     *
+     * @private
+     * @param {Array} fields List of H5P.jQuery objects
+     */
+    var sameHeight = function (fields) {
+      var targetHeight = 0;
+      var i;
+      for (i = 0; i < fields.length; i++) {
+        var fieldHeight = parseFloat(window.getComputedStyle(fields[i][0]).height);
+        if (fieldHeight > targetHeight) {
+          targetHeight = fieldHeight;
+        }
+      }
+
+      if (!targetHeight) {
+        return; // Skip giving all the fields no height
+      }
+
+      targetHeight += 'px';
+      for (i = 0; i < fields.length; i++) {
+        fields[i].css('height', targetHeight);
+      }
     };
 
     /**
@@ -183,11 +233,15 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
         appendTo: $collageWrapper
       });
 
+      // Keep track of all adjustments options so that they may be aligned
+      var adjustmentOptions = [];
+
       // Add spacing selector
-      rangeSelector(spacingField, collage.setSpacing, 20);
+      adjustmentOptions.push(rangeSelector(spacingField, collage.setSpacing, 20, humanInt));
 
       // Add frame options
       var $frameOptionWrapper = getItemWrapper(frameField.name, frameField.label);
+      adjustmentOptions.push($frameOptionWrapper);
       $('<div class="h5p-collage-frame-selector"><label><input type="radio" name="h5p-collage-frame" value="1"' + (params.options.frame ? ' checked="checked"' : '') + '>' + CollageEditor.t('sameAsSpacing') + '</label><br/><label><input type="radio" name="h5p-collage-frame" value="0"' + (params.options.frame ? '' : ' checked="checked"') + '>' + CollageEditor.t('noFrame') + '</label></div>')
         .appendTo($frameOptionWrapper)
         .find('input').change(function () {
@@ -196,7 +250,12 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
         });
 
       // Add height adjustment
-      rangeSelector(heightField, collage.setHeight, 38);
+      adjustmentOptions.push(rangeSelector(heightField, collage.setHeight, 38, humanFloat));
+
+      // Make sure all adjustment options have the same height
+      self.ready(function () {
+        sameHeight(adjustmentOptions);
+      });
 
       // Attach wrapper to container
       $wrapper.appendTo($container);
