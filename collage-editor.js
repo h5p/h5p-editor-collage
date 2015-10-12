@@ -87,8 +87,13 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
             changeImage();
             return false;
           },
-          keypress: function (event) {
-            if (event.keyCode === 32 || event.charCode === 32) {
+          keydown: function (event) {
+            if (event.which === 32) {
+              event.preventDefault();
+            }
+          },
+          keyup: function (event) {
+            if (event.which === 32) {
               changeImage();
             }
           }
