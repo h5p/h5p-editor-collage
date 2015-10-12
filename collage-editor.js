@@ -479,8 +479,8 @@ H5PEditor.widgets.collage = H5PEditor.Collage;
 // Add strings for l10n
 H5PEditor.language['H5PEditor.Collage'] = {
   libraryStrings: {
-    confirmReset: 'Are you sure you wish to change the tiling layout? This will reset the preview.',
-    sameAsSpacing: 'Same as tile spacing',
+    confirmReset: 'Are you sure you wish to change the layout? This will reset the preview.',
+    sameAsSpacing: 'Same as spacing',
     noFrame: 'No frame',
     uploadError: 'Unable to upload image. The file is probably to large.'
   }
