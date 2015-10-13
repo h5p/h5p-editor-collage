@@ -24,14 +24,11 @@
     self.on('change', function (event) {
       $container.removeClass('h5p-collage-loading');
 
-      $img = event.data;
-      $img
-        .attr('tabindex', '0')
-        .addClass('h5p-collage-edit')
-        .on('focus', focus)
-        .on('blur', blur)
+      $img = event.data
         .on('mousedown', mousedown)
         .on('mousewheel DOMMouseScroll', scroll);
+      $container
+        .attr('tabindex', '0');
 
       if (zooming === undefined) {
         // Mousewheel zoom enabled while holding the Z key
@@ -41,10 +38,10 @@
           if (keyCode === 90) {
             zooming = true;
           }
-          else if ((keyCode === 107 || keyCode === 171 || keyCode === 187) && $img.is(':focus')) {
+          else if ((keyCode === 107 || keyCode === 171 || keyCode === 187) && $container.is(':focus')) {
             zoom(0.1);
           }
-          else if ((keyCode === 109 || keyCode === 173 || keyCode === 189) && $img.is(':focus')) {
+          else if ((keyCode === 109 || keyCode === 173 || keyCode === 189) && $container.is(':focus')) {
             zoom(-0.1);
           }
         });
@@ -61,52 +58,43 @@
       layoutSelector.warn = true;
     }
 
-    // Add button for changing image
-    var $changeButton = $('<div/>', {
-      'class': 'h5p-collage-change-image',
-      tabIndex: 0,
-      role: 'button',
-      'aria-label': H5PEditor.t('H5PEditor.Collage', self.empty() ? 'addImage' : 'changeImage'),
-      on: {
-        click: function () {
-          changeImage();
-          return false;
-        },
-        keydown: function (event) {
-          if (event.which === 32) {
-            event.preventDefault();
-          }
-        },
-        keyup: function (event) {
-          if (event.which === 32) {
-            changeImage();
-          }
-        }
-      },
-      appendTo: $container
-    });
-
-    var $zoomOut = $('<div/>', {
-      'class': 'h5p-collage-zoom-out',
-      tabIndex: 0,
-      role: 'button',
-      'aria-label': H5PEditor.t('H5PEditor.Collage', 'zoomOut'),
-      appendTo: $container
-    });
-
-    var $zoomIn = $('<div/>', {
-      'class': 'h5p-collage-zoom-in',
-      tabIndex: 0,
-      role: 'button',
-      'aria-label': H5PEditor.t('H5PEditor.Collage', 'zoomIn'),
-      appendTo: $container
-    });
-
     /**
-     * Upload new image
+     * Makes it easy to create buttons
+     *
      * @private
+     * @param {string} name
+     * @param {string} label
+     * @param {function} callback
+     * @returns {H5P.jQuery}
      */
-    var changeImage = function () {
+    var createButton = function (name, label, callback) {
+      return $('<div/>', {
+        'class': 'h5p-collage-' + name,
+        tabIndex: 0,
+        role: 'button',
+        'aria-label': label,
+        on: {
+          click: function () {
+            callback();
+            return false;
+          },
+          keydown: function (event) {
+            if (event.which === 32) {
+              event.preventDefault();
+            }
+          },
+          keyup: function (event) {
+            if (event.which === 32) {
+              callback();
+            }
+          }
+        },
+        appendTo: $container
+      });
+    };
+
+    // Add button for changing image
+    var $changeButton = createButton('change-image', H5PEditor.t('H5PEditor.Collage', self.empty() ? 'addImage' : 'changeImage'), function () {
       fileUpload(function () {
         // Display loading screen
         self.loading();
@@ -127,7 +115,15 @@
           alert(CollageEditor.t('uploadError'));
         }
       });
-    };
+    });
+
+    createButton('zoom-out', H5PEditor.t('H5PEditor.Collage', 'zoomOut'), function () {
+      zoom(-0.1);
+    });
+
+    createButton('zoom-in', H5PEditor.t('H5PEditor.Collage', 'zoomOut'), function () {
+      zoom(0.1);
+    });
 
     /**
      * Allows styling for the whole container when the clip is focused.
@@ -148,7 +144,7 @@
     };
 
     /**
-     * Remove focus styles.
+     * Handle mouse grabbing.
      *
      * @private
      * @param {Event} event
@@ -165,15 +161,15 @@
       startPos = new Size(event.pageX, event.pageY);
 
       // Listen for further mouse events
-      H5P.$body
-        .bind('mouseup', release)
-        .bind('mouseleave', release)
+      H5P.$window
         .bind('mousemove', move)
+        .bind('mouseup', release);
+
+      H5P.$body
         .addClass('h5p-no-select');
 
-      $img.addClass('h5p-collage-grabbed').focus();
-
-      return false; // Stop event
+      $img.addClass('h5p-collage-grabbed');
+      $container.focus();
     };
 
     /**
@@ -197,10 +193,11 @@
      * @private
      */
     var release = function () {
-      H5P.$body
-        .unbind('mouseup', release)
-        .unbind('mouseleave', release)
+      H5P.$window
         .unbind('mousemove', move)
+        .unbind('mouseup', release);
+
+      H5P.$body
         .removeClass('h5p-no-select');
 
       $img.removeClass('h5p-collage-grabbed');
@@ -225,10 +222,9 @@
      * @param {Event} event
      */
     var scroll = function (event) {
-      // Set focus when hovering image and scrolling
-      $img.focus();
-
       if (zooming) {
+        // Set focus when hovering image and scrolling
+        $container.focus();
         if (event.originalEvent.wheelDelta) {
           zoom(event.originalEvent.wheelDelta > 0 ? 0.1 : -0.1);
           return false;
