@@ -1,4 +1,4 @@
-(function (CollageEditor) {
+(function ($, CollageEditor) {
 
   /**
    * Adds editor functionality to the collage clips.
@@ -9,7 +9,7 @@
    * @param {Object} content
    * @param {number} contentId
    */
-  CollageEditor.Clip = function () {
+  CollageEditor.Clip = function (layoutSelector, fileUpload) {
     var self = this;
 
     // Use references
@@ -55,6 +55,79 @@
         });
       }
     });
+
+    if (!self.empty()) {
+      // Make sure we display a warning before changing templates.
+      layoutSelector.warn = true;
+    }
+
+    // Add button for changing image
+    var $changeButton = $('<div/>', {
+      'class': 'h5p-collage-change-image',
+      tabIndex: 0,
+      role: 'button',
+      'aria-label': H5PEditor.t('H5PEditor.Collage', self.empty() ? 'addImage' : 'changeImage'),
+      on: {
+        click: function () {
+          changeImage();
+          return false;
+        },
+        keydown: function (event) {
+          if (event.which === 32) {
+            event.preventDefault();
+          }
+        },
+        keyup: function (event) {
+          if (event.which === 32) {
+            changeImage();
+          }
+        }
+      },
+      appendTo: $container
+    });
+
+    var $zoomOut = $('<div/>', {
+      'class': 'h5p-collage-zoom-out',
+      tabIndex: 0,
+      role: 'button',
+      'aria-label': H5PEditor.t('H5PEditor.Collage', 'zoomOut'),
+      appendTo: $container
+    });
+
+    var $zoomIn = $('<div/>', {
+      'class': 'h5p-collage-zoom-in',
+      tabIndex: 0,
+      role: 'button',
+      'aria-label': H5PEditor.t('H5PEditor.Collage', 'zoomIn'),
+      appendTo: $container
+    });
+
+    /**
+     * Upload new image
+     * @private
+     */
+    var changeImage = function () {
+      fileUpload(function () {
+        // Display loading screen
+        self.loading();
+        self.$container.addClass('h5p-collage-loading');
+        $changeButton.attr('aria-label', H5PEditor.t('H5PEditor.Collage', 'changeImage'));
+      }, function (err, result) {
+        // Update clip
+        self.update(result); // TODO: Use private?
+
+        if (!err) {
+          // Make sure we display a warning before changing templates.
+          layoutSelector.warn = true;
+        }
+        else {
+          $container.removeClass('h5p-collage-loading').addClass('h5p-collage-empty');
+          $changeButton.attr('aria-label', H5PEditor.t('H5PEditor.Collage', 'addImage'));
+          H5P.error(err);
+          alert(CollageEditor.t('uploadError'));
+        }
+      });
+    };
 
     /**
      * Allows styling for the whole container when the clip is focused.
@@ -348,4 +421,4 @@
     };
   };
 
-})(H5PEditor.Collage);
+})(H5P.jQuery, H5PEditor.Collage);

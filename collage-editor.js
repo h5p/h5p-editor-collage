@@ -46,64 +46,8 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
 
     // Handle clips being added to the collage.
     collage.on('clipAdded', function (event) {
-      var clip = event.data;
-
-      if (!clip.empty()) {
-        // Make sure we display a warning before changing templates.
-        layoutSelector.warn = true;
-      }
-
-      /**
-       * Upload new image
-       * @private
-       */
-      var changeImage = function () {
-        fileUpload(function () {
-          // Display loading screen
-          clip.loading();
-          clip.$container.addClass('h5p-collage-loading');
-        }, function (err, result) {
-          // Update clip
-          clip.update(result);
-
-          if (!err) {
-            // Make sure we display a warning before changing templates.
-            layoutSelector.warn = true;
-          }
-          else {
-            H5P.error(err);
-            alert(CollageEditor.t('uploadError'));
-          }
-        });
-      };
-
-      // Add button
-      var $changeButton = $('<div/>', {
-        'class': 'h5p-collage-change-image',
-        tabIndex: 0,
-        role: 'button',
-        text: 'Change Image',
-        on: {
-          click: function () {
-            changeImage();
-            return false;
-          },
-          keydown: function (event) {
-            if (event.which === 32) {
-              event.preventDefault();
-            }
-          },
-          keyup: function (event) {
-            if (event.which === 32) {
-              changeImage();
-            }
-          }
-        }
-      });
-      clip.$container.append($changeButton);
-
       // Extend clip
-      CollageEditor.Clip.call(clip);
+      CollageEditor.Clip.call(event.data, layoutSelector, fileUpload);
     });
 
     /**
@@ -218,7 +162,9 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
      */
     var fitClips = function () {
       for (var i = 0; i < collage.clips.length; i++) {
-        collage.clips[i].fit();
+        if (!collage.clips[i].empty()) {
+          collage.clips[i].fit();
+        }
       }
     };
 
@@ -547,7 +493,8 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
     iframe.$file.on('change', function () {
       iframe.inUse = true;
       change();
-      iframe.$form.submit();
+      setTimeout(function () { iframe.$form.submit(); }, 1000);
+      //iframe.$form.submit();
     });
   };
 
@@ -566,6 +513,10 @@ H5PEditor.language['H5PEditor.Collage'] = {
     confirmReset: 'Are you sure you wish to change the layout? This will reset the preview.',
     sameAsSpacing: 'Same as spacing',
     noFrame: 'No frame',
-    uploadError: 'Unable to upload image. The file is probably to large.'
+    uploadError: 'Unable to upload image. The file is probably to large.',
+    zoomIn: 'Zoom In',
+    zoomOut: 'Zoom Out',
+    addImage: 'Add Image',
+    changeImage: 'Change Image'
   }
 };
