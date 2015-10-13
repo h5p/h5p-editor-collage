@@ -17,6 +17,9 @@
     },
     {
       "path": "layout-selector.js"
+    },
+    {
+      "path": "clip-editor.js"
     }
   ],
   "preloadedCss": [

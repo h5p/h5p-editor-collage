@@ -1,3 +1,6 @@
+.h5p-collage-wrapper {
+  background-color: #fff;
+}
 .h5p-collage-change-image {
   font-size: 14px;
   position: absolute;
@@ -7,12 +10,12 @@
   color: #e0e0e0;
   padding: 0.25em 0.5em;
   outline: none;
-  cursor: default;
+  cursor: pointer;
   border-radius: 0.25em;
 }
 .h5p-collage-change-image:hover,
 .h5p-collage-change-image:focus {
-  background: rgba(0,0,0,0.9);
+  background: rgba(0,0,0,0.85);
   color: #f0f0f0;
 }
 .h5p-collage-change-image:active {
@@ -42,21 +45,22 @@
   margin: 0 1em 1em 0;
   outline: none;
 }
-.h5p-collage-editor-layout-preview .h5p-collage-col:after {
+.h5p-collage-editor-layout-preview .h5p-collage-col:before {
   display: block;
   background: #ddd;
   width: 100%;
   height: 100%;
+  cursor: pointer;
   content: " ";
 }
-.h5p-collage-editor-layout-preview:hover .h5p-collage-col:after,
-.h5p-collage-editor-layout-preview:focus .h5p-collage-col:after {
+.h5p-collage-editor-layout-preview:hover .h5p-collage-col:before,
+.h5p-collage-editor-layout-preview:focus .h5p-collage-col:before {
   background: #afafaf;
 }
-.h5p-collage-editor-layout-preview:active .h5p-collage-col:after {
+.h5p-collage-editor-layout-preview:active .h5p-collage-col:before {
   background: #668fbd;
 }
-.h5p-collage-editor-layout-preview.h5p-collage-selected-layout .h5p-collage-col:after {
+.h5p-collage-editor-layout-preview.h5p-collage-selected-layout .h5p-collage-col:before {
   background: #666;
 }
 .h5p-collage-editor-wrapper {
@@ -106,4 +110,36 @@
 .h5p-collage-collage-item .h5peditor-field-description {
   font-size: 12px;
   padding: 0.33em 1.34em 0;
+}
+.h5p-no-select {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.h5p-collage-loading:after {
+  content: "";
+  position: absolute;
+  width: 4.5em;
+  height: 4.5em;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  border-top: 0.25em solid #fff;
+  box-shadow: 0 0 0.5em #fff;
+  background: transparent;
+  animation: spinning 1s infinite linear;
+}
+.h5p-collage-loading:before {
+  background-image: none;
+}
+@keyframes spinning {
+  0% {
+    transform: translate(-50%,-50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%,-50%) rotate(360deg);
+  }
 }

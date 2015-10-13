@@ -61,6 +61,7 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
         fileUpload(function () {
           // Display loading screen
           clip.loading();
+          clip.$container.addClass('h5p-collage-loading');
         }, function (err, result) {
           // Update clip
           clip.update(result);
@@ -99,10 +100,10 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
           }
         }
       });
-      clip.append($changeButton);
+      clip.$container.append($changeButton);
 
-      // Enable users to zoom and pan the image.
-      clip.enableRepositioning();
+      // Extend clip
+      CollageEditor.Clip.call(clip);
     });
 
     /**
@@ -211,6 +212,17 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
     };
 
     /**
+     * Make sure all the clips cover their containers.
+     *
+     * @private
+     */
+    var fitClips = function () {
+      for (var i = 0; i < collage.clips.length; i++) {
+        collage.clips[i].fit();
+      }
+    };
+
+    /**
      * Appends the collage editor widget
      *
      * @param {H5P.jQuery} $container
@@ -242,7 +254,13 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
       var adjustmentOptions = [];
 
       // Add spacing selector
-      adjustmentOptions.push(rangeSelector(spacingField, collage.setSpacing, 20, humanInt));
+      adjustmentOptions.push(rangeSelector(spacingField, function (newSpacing) {
+        collage.setSpacing(newSpacing);
+        if (params.options.frame) {
+          collage.setFrame(newSpacing);
+        }
+        fitClips();
+      }, 20, humanInt));
 
       // Add frame options
       var $frameOptionWrapper = getItemWrapper(frameField.name, frameField.label);
@@ -255,7 +273,9 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
         });
 
       // Add height adjustment
-      adjustmentOptions.push(rangeSelector(heightField, collage.setHeight, 38, humanFloat));
+      adjustmentOptions.push(rangeSelector(heightField, function (newHeight) {
+        collage.setHeight(newHeight);
+      }, 38, humanFloat));
 
       // Make sure all adjustment options have the same height
       self.ready(function () {
