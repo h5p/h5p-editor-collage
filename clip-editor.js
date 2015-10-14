@@ -25,6 +25,7 @@
       $container.removeClass('h5p-collage-loading');
 
       $img = event.data
+        .on('dragstart', disableDrag)
         .on('mousedown', mousedown)
         .on('mousewheel DOMMouseScroll', scroll);
       $container
@@ -57,6 +58,13 @@
       // Make sure we display a warning before changing templates.
       layoutSelector.warn = true;
     }
+
+    /**
+     * Prevent dragging/copying the image instead of panning. (Firefox)
+     */
+    var disableDrag = function () {
+      return false;
+    };
 
     /**
      * Makes it easy to create buttons
