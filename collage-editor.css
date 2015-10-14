@@ -97,7 +97,8 @@
 }
 .h5p-collage-empty .h5p-collage-change-image:hover:before {
   left: 50%;
-  transform: translate(-50%, -100%);
+  top: 50%;
+  transform: translate(-50%, 2.5em);
   margin-top: -0.25em;
   background-color: transparent;
   color: #afafaf;
