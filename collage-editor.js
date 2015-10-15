@@ -50,6 +50,10 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
       CollageEditor.Clip.call(event.data, layoutSelector, fileUpload);
     });
 
+    H5P.$window.on('resize', function () {
+      collage.trigger('resize');
+    });
+
     /**
      * Converts em value to a more human value.
      *

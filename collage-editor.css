@@ -208,10 +208,10 @@
   -ms-user-select: none;
   user-select: none;
 }
-.h5p-collage-col:focus {
+.h5p-collage-photo:focus {
   outline: none;
 }
-.h5p-collage-col:focus:after {
+.h5p-collage-photo:focus:after {
   content: " ";
   box-shadow: 0 0 1em #fff inset;
   pointer-events: none;
