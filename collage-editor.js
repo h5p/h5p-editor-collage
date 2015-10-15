@@ -497,8 +497,7 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
     iframe.$file.on('change', function () {
       iframe.inUse = true;
       change();
-      setTimeout(function () { iframe.$form.submit(); }, 1000);
-      //iframe.$form.submit();
+      iframe.$form.submit();
     });
   };
 

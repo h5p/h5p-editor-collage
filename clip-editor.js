@@ -103,7 +103,7 @@
       fileUpload(function () {
         // Display loading screen
         self.loading();
-        self.self.$wrapper.addClass('h5p-collage-loading');
+        self.$wrapper.addClass('h5p-collage-loading');
         $changeButton.attr('aria-label', H5PEditor.t('H5PEditor.Collage', 'changeImage'));
       }, function (err, result) {
         // Update clip
