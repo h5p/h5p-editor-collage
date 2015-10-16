@@ -40,6 +40,10 @@
   font-family: H5PFontAwesome4;
   font-size: 14px;
 }
+.h5p-collage-zoom-out[aria-disabled=true],
+.h5p-collage-zoom-in[aria-disabled=true] {
+  opacity: 0.6;
+}
 .h5p-collage-zoom-in {
   padding-top: 1px;
   left: 4em;
@@ -244,4 +248,23 @@
   100% {
     transform: translate(-50%,-50%) rotate(360deg);
   }
+}
+
+.h5p-collage-zoom-level {
+  position: absolute;
+  bottom: 0.25em;
+  right: 0.5em;
+
+  line-height: 1em;
+  font-size: 16px;
+  color: #f0f0f0;
+  text-shadow: 0 0 0.125em #101010;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s linear 0.5s, opacity 0.5s linear 0s;
+}
+.h5p-collage-zoom-level.h5p-collage-visible {
+  visibility: visible;
+  opacity: 1;
+  transition: none;
 }

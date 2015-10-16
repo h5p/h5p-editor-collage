@@ -412,7 +412,27 @@
       );
       $img.css(offset.getPx());
       self.content.offset = offset.getPs();
+
+      // Set zoom label
+      var scale = (Math.round(self.content.scale * 10) / 10).toString();
+      if (scale.indexOf('.') === -1) {
+        scale += '.0';
+      }
+      $zoomLevel.text(scale + 'x').addClass('h5p-collage-visible');
+      if (zoomLevelTimer) {
+        clearTimeout(zoomLevelTimer);
+      }
+      zoomLevelTimer = setTimeout(function () {
+        $zoomLevel.removeClass('h5p-collage-visible');
+      }, 1500);
     };
+
+    // Add label for displaying zoom level
+    var zoomLevelTimer;
+    var $zoomLevel = $('<div/>', {
+      'class': 'h5p-collage-zoom-level',
+      appendTo: self.$wrapper
+    });
 
     /**
      * Remove image and display throbber.
