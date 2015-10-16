@@ -519,6 +519,7 @@ H5PEditor.language['H5PEditor.Collage'] = {
     uploadError: 'Unable to upload image. The file is probably to large.',
     zoomIn: 'Zoom In',
     zoomOut: 'Zoom Out',
+    noMoreZoom: 'No more zoom',
     addImage: 'Add Image',
     changeImage: 'Change Image'
   }

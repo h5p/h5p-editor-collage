@@ -1,5 +1,10 @@
 (function ($, CollageEditor) {
 
+  /** @constant {number} */
+  var ZOOM_MIN = 1;
+  /** @constant {number} */
+  var ZOOM_MAX = 3;
+
   /**
    * Adds editor functionality to the collage clips.
    *
@@ -98,6 +103,30 @@
       });
     };
 
+    /**
+     * Help display the correct button state.
+     * @private
+     */
+    var toggleZoomButtonsState = function () {
+      if (self.content.scale === ZOOM_MIN) {
+        // Disable zoom out button
+        $zoomOut.attr('aria-disabled', true).attr('aria-label', H5PEditor.t('H5PEditor.Collage', 'noMoreZoom'));
+      }
+      else if ($zoomOut.attr('aria-disabled')) {
+        // Enable zoom out button
+        $zoomOut.attr('aria-disabled', false).attr('aria-label', H5PEditor.t('H5PEditor.Collage', 'zoomOut'));
+      }
+
+      if (self.content.scale === ZOOM_MAX) {
+        // Disable zoom in button
+        $zoomIn.attr('aria-disabled', true).attr('aria-label', H5PEditor.t('H5PEditor.Collage', 'noMoreZoom'));
+      }
+      else if ($zoomIn.attr('aria-disabled')) {
+        // Enable zoom out button
+        $zoomIn.attr('aria-disabled', false).attr('aria-label', H5PEditor.t('H5PEditor.Collage', 'zoomIn'));
+      }
+    };
+
     // Add button for changing image
     var $changeButton = createButton('change-image', H5PEditor.t('H5PEditor.Collage', self.empty() ? 'addImage' : 'changeImage'), function () {
       fileUpload(function () {
@@ -122,13 +151,15 @@
       });
     });
 
-    createButton('zoom-out', H5PEditor.t('H5PEditor.Collage', 'zoomOut'), function () {
+    var $zoomOut = createButton('zoom-out', H5PEditor.t('H5PEditor.Collage', 'zoomOut'), function () {
       zoom(-0.1);
     });
 
-    createButton('zoom-in', H5PEditor.t('H5PEditor.Collage', 'zoomOut'), function () {
+    var $zoomIn = createButton('zoom-in', H5PEditor.t('H5PEditor.Collage', 'zoomIn'), function () {
       zoom(0.1);
     });
+
+    toggleZoomButtonsState();
 
     /**
      * Allows styling for the whole container when the clip is focused.
@@ -354,12 +385,13 @@
       self.content.scale += delta;
 
       // Keep withing boundries
-      if (self.content.scale < 1) {
-        self.content.scale = 1;
+      if (self.content.scale < ZOOM_MIN) {
+        self.content.scale = ZOOM_MIN;
       }
-      if (self.content.scale > 3) {
-        self.content.scale = 3;
+      if (self.content.scale > ZOOM_MAX) {
+        self.content.scale = ZOOM_MAX;
       }
+      toggleZoomButtonsState();
 
       // Keep track of size before scaling
       var imgSize = $img[0].getBoundingClientRect();
