@@ -220,11 +220,13 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
         .find('input').change(function () {
           params.options.frame = (this.value === '1');
           collage.setFrame(params.options.frame ? params.options.spacing : 0);
+          fitClips();
         });
 
       // Add height adjustment
       adjustmentOptions.push(rangeSelector(heightField, function (newHeight) {
         collage.setHeight(newHeight);
+        fitClips();
       }, 38, humanFloat));
 
       // Make sure all adjustment options have the same height

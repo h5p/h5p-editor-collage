@@ -451,8 +451,7 @@
     self.fit = function () {
       var imageSize = {
         width: 'auto',
-        height: 'auto',
-        margin: self.content.offset.top + '% 0 0 ' + self.content.offset.left + '%'
+        height: 'auto'
       };
 
       // Reset size
