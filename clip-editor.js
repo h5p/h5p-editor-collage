@@ -64,7 +64,7 @@
     /**
      * Prevent dragging/copying the image instead of panning. (Firefox)
      */
-    var disableDrag = function () {
+    var disableDrag = function () {
       return false;
     };
 
@@ -185,7 +185,7 @@
      * @private
      * @param {Event} event
      */
-    var mousedown = function (event) {
+    var mousedown = function (event) {
       if (event.button !== 0) {
         return; // Only left click
       }

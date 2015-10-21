@@ -50,7 +50,7 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
       CollageEditor.Clip.call(event.data, layoutSelector, fileUpload);
     });
 
-    H5P.$window.on('resize', function () {
+    H5P.$window.on('resize', function () {
       collage.trigger('resize');
     });
 
@@ -224,7 +224,7 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
         });
 
       // Add height adjustment
-      adjustmentOptions.push(rangeSelector(heightField, function (newHeight) {
+      adjustmentOptions.push(rangeSelector(heightField, function (newHeight) {
         collage.setHeight(newHeight);
         fitClips();
       }, 38, humanFloat));
