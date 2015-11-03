@@ -33,6 +33,10 @@
   border-radius: 0.25em;
   top: 0.25em;
   text-align: center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .h5p-collage-change-image:after,
 .h5p-collage-zoom-out:after,
