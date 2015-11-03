@@ -70,7 +70,7 @@
      * @param {string} layout
      */
     var selectLayout = function ($preview, layout) {
-      if (self.warn && !confirm(CollageEditor.t('confirmReset'))) {
+      if ($preview === $selected || (self.warn && !confirm(CollageEditor.t('confirmReset')))) {
         return;
       }
 
