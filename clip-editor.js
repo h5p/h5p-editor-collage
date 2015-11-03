@@ -54,6 +54,8 @@
           }
         });
       }
+
+      toggleZoomButtonsState();
     });
 
     if (!self.empty()) {
@@ -158,8 +160,6 @@
     var $zoomIn = createButton('zoom-in', H5PEditor.t('H5PEditor.Collage', 'zoomIn'), function () {
       zoom(0.1);
     });
-
-    toggleZoomButtonsState();
 
     /**
      * Allows styling for the whole container when the clip is focused.
