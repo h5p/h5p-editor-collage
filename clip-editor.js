@@ -242,6 +242,7 @@
       if (lastOffset) {
         self.content.offset = lastOffset.getPs();
         $img.css('margin', self.content.offset.top + '% 0 0 ' + self.content.offset.left + '%');
+        lastOffset = null;
       }
     };
 
