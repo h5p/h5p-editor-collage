@@ -76,11 +76,17 @@
 .h5p-collage-change-image:after {
   content: "\f0ad";
 }
+.h5p-collage-zoom-in:hover,
+.h5p-collage-zoom-in:focus,
+.h5p-collage-zoom-out:hover,
+.h5p-collage-zoom-out:focus,
 .h5p-collage-change-image:hover,
 .h5p-collage-change-image:focus {
   background: rgba(0,0,0,0.85);
   color: #f0f0f0;
 }
+.h5p-collage-zoom-in:active,
+.h5p-collage-zoom-out:active,
 .h5p-collage-change-image:active {
   color: #c0c0c0;
 }

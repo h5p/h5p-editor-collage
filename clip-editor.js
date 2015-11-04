@@ -206,7 +206,6 @@
         .addClass('h5p-no-select');
 
       $img.addClass('h5p-collage-grabbed');
-      self.$wrapper.focus();
     };
 
     /**
@@ -244,6 +243,8 @@
         $img.css('margin', self.content.offset.top + '% 0 0 ' + self.content.offset.left + '%');
         lastOffset = null;
       }
+
+      self.$wrapper.focus();
     };
 
     /**
