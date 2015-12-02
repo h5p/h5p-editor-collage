@@ -42,8 +42,13 @@
           click: function () {
             selectLayout($layout, layout.value);
           },
-          keypress: function (event) {
-            if (event.keyCode === 32 || event.charCode === 32) {
+          keydown: function (event) {
+            if (event.which === 32) {
+              event.preventDefault();
+            }
+          },
+          keyup: function (event) {
+            if (event.which === 32) {
               selectLayout($layout, layout.value);
             }
           }
@@ -65,7 +70,7 @@
      * @param {string} layout
      */
     var selectLayout = function ($preview, layout) {
-      if (self.warn && !confirm(CollageEditor.t('confirmReset'))) {
+      if ($preview === $selected || (self.warn && !confirm(CollageEditor.t('confirmReset')))) {
         return;
       }
 
