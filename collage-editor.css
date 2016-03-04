@@ -243,8 +243,8 @@
   top: 50%;
   left: 50%;
   border-radius: 50%;
-  border-top: 0.25em solid #fff;
-  box-shadow: 0 0 0.5em #fff;
+  border-top: 0.25em solid #d6d6d6;
+  box-shadow: 0 0 0.5em #d6d6d6;
   background: transparent;
   animation: spinning 1s infinite linear;
 }
