@@ -422,6 +422,14 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
             value: contentId ? contentId : 0,
             appendTo: iframe.$form
           });
+          if (H5PEditor.uploadToken) {
+            $('<input/>', {
+              type: 'hidden',
+              name: 'token',
+              value: H5PEditor.uploadToken,
+              appendTo: iframe.$form
+            });
+          }
 
           var $body = iframe.$element.contents().find('body');
           iframe.$form.appendTo($body);
