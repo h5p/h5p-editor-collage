@@ -430,6 +430,18 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
               appendTo: iframe.$form
             });
           }
+          else if (H5PEditor.uploadParams) {
+            for (var up in H5PEditor.uploadParams) {
+              if (H5PEditor.uploadParams.hasOwnProperty(up)) {
+                $('<input/>', {
+                  type: 'hidden',
+                  name: up,
+                  value: H5PEditor.uploadParams[up],
+                  appendTo: iframe.$form
+                });
+              }
+            }
+          }
 
           var $body = iframe.$element.contents().find('body');
           iframe.$form.appendTo($body);
