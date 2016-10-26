@@ -11,9 +11,8 @@
    * @class H5PEditor.Collage.Clip
    * @extends H5P.Collage.Clip
    * @param {H5PEditor.Collage.LayoutSelector} layoutSelector
-   * @param {function} fileUpload
    */
-  CollageEditor.Clip = function (layoutSelector, fileUpload) {
+  CollageEditor.Clip = function (layoutSelector) {
     var self = this;
 
     // Use references
@@ -62,6 +61,34 @@
       // Make sure we display a warning before changing templates.
       layoutSelector.warn = true;
     }
+
+    // Create a new file uploader
+    var uploader = new H5PEditor.FileUploader({
+      name: 'collageClip',
+      type: 'image'
+    });
+    uploader.on('upload', function () {
+      // Display loading screen
+      self.loading();
+      self.$wrapper.addClass('h5p-collage-loading');
+      $changeButton.attr('aria-label', H5PEditor.t('H5PEditor.Collage', 'changeImage'));
+    });
+    uploader.on('uploadComplete', function (event) {
+      var result = event.data;
+
+      // Update clip
+      update(result.data);
+
+      if (!result.error) {
+        // Make sure we display a warning before changing templates.
+        layoutSelector.warn = true;
+      }
+      else {
+        self.$wrapper.removeClass('h5p-collage-loading').addClass('h5p-collage-empty');
+        $changeButton.attr('aria-label', H5PEditor.t('H5PEditor.Collage', 'addImage'));
+        alert(CollageEditor.t('uploadError'));
+      }
+    });
 
     /**
      * Prevent dragging/copying the image instead of panning. (Firefox)
@@ -131,26 +158,7 @@
 
     // Add button for changing image
     var $changeButton = createButton('change-image', H5PEditor.t('H5PEditor.Collage', self.empty() ? 'addImage' : 'changeImage'), function () {
-      fileUpload(function () {
-        // Display loading screen
-        self.loading();
-        self.$wrapper.addClass('h5p-collage-loading');
-        $changeButton.attr('aria-label', H5PEditor.t('H5PEditor.Collage', 'changeImage'));
-      }, function (err, result) {
-        // Update clip
-        update(result);
-
-        if (!err) {
-          // Make sure we display a warning before changing templates.
-          layoutSelector.warn = true;
-        }
-        else {
-          self.$wrapper.removeClass('h5p-collage-loading').addClass('h5p-collage-empty');
-          $changeButton.attr('aria-label', H5PEditor.t('H5PEditor.Collage', 'addImage'));
-          H5P.error(err);
-          alert(CollageEditor.t('uploadError'));
-        }
-      });
+      uploader.openFileSelector();
     });
 
     var $zoomOut = createButton('zoom-out', H5PEditor.t('H5PEditor.Collage', 'zoomOut'), function () {
