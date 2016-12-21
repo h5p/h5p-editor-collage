@@ -212,7 +212,8 @@
 }
 .h5p-collage-collage-item .h5peditor-field-description {
   font-size: 12px;
-  padding: 0.33em 1.34em 0;
+  padding-left: 1.467em;
+  padding-right: 1.467em;
 }
 .h5p-no-select {
   -webkit-touch-callout: none;
