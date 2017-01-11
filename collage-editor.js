@@ -197,7 +197,7 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
       $('<div/>', {
         'class': 'h5peditor-field-description',
         text: field.description,
-        appendTo: $collageWrapper
+        insertBefore: $preview
       });
 
       // Keep track of all adjustments options so that they may be aligned
