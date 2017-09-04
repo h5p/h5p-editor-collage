@@ -339,6 +339,10 @@ H5PEditor.language['H5PEditor.Collage'] = {
     zoomOut: 'Zoom Out',
     noMoreZoom: 'No more zoom',
     addImage: 'Add Image',
-    changeImage: 'Change Image'
+    changeImage: 'Change Image',
+    imageSettings: 'Image settings',
+    close: 'Close',
+    imageAltLabel: 'Alternative text',
+    imageTitleLabel: 'Hover text'
   }
 };

@@ -5,6 +5,8 @@
   /** @constant {number} */
   var ZOOM_MAX = 3;
 
+  var nextInstanceIndex = 0;
+
   /**
    * Adds editor functionality to the collage clips.
    *
@@ -14,6 +16,9 @@
    */
   CollageEditor.Clip = function (layoutSelector) {
     var self = this;
+
+    // creates a unique index for this clip
+    this.instanceIndex = nextInstanceIndex++;
 
     // Use references
     var $img;
@@ -118,18 +123,61 @@
             return false;
           },
           keydown: function (event) {
-            if (event.which === 32) {
+            if (event.which === 32 && event.target.nodeName !== 'INPUT') {
               event.preventDefault();
             }
           },
           keyup: function (event) {
-            if (event.which === 32) {
+            if (event.which === 32 && event.target.nodeName !== 'INPUT') {
               callback();
             }
           }
         },
         appendTo: self.$wrapper
       });
+    };
+
+    var createDialog = function() {
+      var imageAltFieldId = 'image-alt-field-' + self.instanceIndex;
+      var imageNameFieldId = 'image-name-field-' + self.instanceIndex;
+
+      var $dialog = $('<div role="dialog" class="h5p-editor-dialog">' +
+        '<a href="#" class="h5p-close" title="' + ns.t('H5PEditor.Collage', 'close') + '"></a>' +
+        '<div class="content">' +
+          '<div class="field field-name-alt text">' +
+            '<label class="h5peditor-label-wrapper" id="' + imageAltFieldId + '">' +
+              '<span class="h5peditor-label h5peditor-required">' + ns.t('H5PEditor.Collage', 'imageAltLabel') + '</span>' +
+            '</label>' +
+            '<input class="h5peditor-text" type="text" maxlength="255" aria-labelledby="' + imageAltFieldId + '">' +
+          '</div>' +
+
+          '<div class="field field-name-title text">' +
+            '<label class="h5peditor-label-wrapper" id="' + imageNameFieldId + '">' +
+              '<span class="h5peditor-label">' + ns.t('H5PEditor.Collage', 'imageTitleLabel') + '</span>' +
+            '</label>' +
+            '<input class="h5peditor-text" type="text" maxlength="255" aria-labelledby="' + imageNameFieldId + '">' +
+          '</div>' +
+        '</div>' +
+      '</div>');
+
+      $dialog.find('.h5p-close').click(function () {
+        $dialog.toggleClass('h5p-open');
+        return false;
+      });
+
+      $dialog.find('.field-name-alt input')
+        .val(self.content.alt || '')
+        .change(function() {
+          self.content.alt = $(this).val();
+        });
+
+      $dialog.find('.field-name-title input')
+        .val(self.content.title || '')
+        .change(function() {
+          self.content.title = $(this).val();
+        });
+
+      return $dialog;
     };
 
     /**
@@ -168,6 +216,19 @@
     var $zoomIn = createButton('zoom-in', H5PEditor.t('H5PEditor.Collage', 'zoomIn'), function () {
       zoom(0.1);
     });
+
+    var $imageSettings = createButton('image-settings', H5PEditor.t('H5PEditor.Collage', 'imageSettings'), function () {
+      $dialog.addClass('h5p-open');
+    }).toggleClass('warning', self.content.alt && self.content.alt.length === 0);
+
+    var $dialog = createDialog().appendTo(self.$wrapper);
+
+    // toggle warning on image settings button, if no alt-value
+    $dialog.find('.field-name-alt input')
+      .val(self.content.alt || '')
+      .keyup(function() {
+        $imageSettings.toggleClass('warning', $(this).val().length === 0);
+      });
 
     /**
      * Allows styling for the whole container when the clip is focused.
