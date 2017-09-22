@@ -1,5 +1,6 @@
 .h5p-collage-wrapper {
   background-color: #fff;
+  position: relative;
 }
 .h5p-collage-empty:before {
   background-image: none;
@@ -91,21 +92,22 @@
   display: block;
 }
 
-.h5p-collage-photo .h5p-editor-dialog.h5p-open {
-  margin: 1em 0 0 1em;
+.h5p-collage .h5p-editor-dialog.h5p-open {
+  top: 0;
+  margin: 1em 0 0 0;
 }
 
-.h5p-collage-photo .h5p-editor-dialog.h5p-open .content {
+.h5p-collage .h5p-editor-dialog.h5p-open .content {
   width: 200px;
 }
 
-.h5p-collage-photo .h5p-editor-dialog.h5p-open .content .h5peditor-label {
+.h5p-collage .h5p-editor-dialog.h5p-open .content .h5peditor-label {
   font-size: inherit;
   font-weight: 600;
   padding: 0;
 }
 
-.h5p-collage-photo .h5p-editor-dialog.h5p-open .h5p-close:before {
+.h5p-collage .h5p-editor-dialog.h5p-open .h5p-close:before {
   font-size: inherit;
 }
 

@@ -46,8 +46,18 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
 
     // Handle clips being added to the collage.
     collage.on('clipAdded', function (event) {
+      var clip = event.data;
       // Extend clip
-      CollageEditor.Clip.call(event.data, layoutSelector);
+      CollageEditor.Clip.call(clip, layoutSelector);
+
+      // attach the settings dialog
+      clip.on('show-dialog', function (event) {
+        var $dialog = event.data;
+
+        if ($dialog.parent().length === 0) {
+          $wrapper.find('.h5p-collage-wrapper').append($dialog);
+        }
+      });
     });
 
     H5P.$window.on('resize', function () {

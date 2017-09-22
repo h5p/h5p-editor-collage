@@ -218,10 +218,17 @@
     });
 
     var $imageSettings = createButton('image-settings', H5PEditor.t('H5PEditor.Collage', 'imageSettings'), function () {
-      $dialog.addClass('h5p-open');
+      // align dialog with $change button
+      $dialog.css('left',  $changeButton.offset().left);
+
+      // attach dialog to dom
+      self.trigger('show-dialog', $dialog);
+
+      // show
+      $dialog.toggleClass('h5p-open');
     }).toggleClass('warning', self.content.alt && self.content.alt.length === 0);
 
-    var $dialog = createDialog().appendTo(self.$wrapper);
+    var $dialog = createDialog();
 
     // toggle warning on image settings button, if no alt-value
     $dialog.find('.field-name-alt input')
