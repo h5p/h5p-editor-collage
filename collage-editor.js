@@ -36,7 +36,7 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
     });
 
     // Editor wrapper
-    $wrapper = $('<div/>', {
+    var $wrapper = $('<div/>', {
       'class': 'h5p-collage-editor-wrapper'
     });
 
@@ -199,7 +199,7 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
 
       // Attach Collage preview
       var $collageWrapper = getItemWrapper(field.name, field.label);
-      $preview = $('<div/>', {
+      var $preview = $('<div/>', {
         'class': 'h5p-collage-preview',
         appendTo: $collageWrapper
       });
