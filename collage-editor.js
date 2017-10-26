@@ -36,7 +36,7 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
     });
 
     // Editor wrapper
-    $wrapper = $('<div/>', {
+    var $wrapper = $('<div/>', {
       'class': 'h5p-collage-editor-wrapper'
     });
 
@@ -46,8 +46,18 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
 
     // Handle clips being added to the collage.
     collage.on('clipAdded', function (event) {
+      var clip = event.data;
       // Extend clip
-      CollageEditor.Clip.call(event.data, layoutSelector);
+      CollageEditor.Clip.call(clip, layoutSelector);
+
+      // attach the settings dialog
+      clip.on('show-dialog', function (event) {
+        var $dialog = event.data;
+
+        if ($dialog.parent().length === 0) {
+          $wrapper.find('.h5p-collage-wrapper').append($dialog);
+        }
+      });
     });
 
     H5P.$window.on('resize', function () {
@@ -189,7 +199,7 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
 
       // Attach Collage preview
       var $collageWrapper = getItemWrapper(field.name, field.label);
-      $preview = $('<div/>', {
+      var $preview = $('<div/>', {
         'class': 'h5p-collage-preview',
         appendTo: $collageWrapper
       });
@@ -339,6 +349,10 @@ H5PEditor.language['H5PEditor.Collage'] = {
     zoomOut: 'Zoom Out',
     noMoreZoom: 'No more zoom',
     addImage: 'Add Image',
-    changeImage: 'Change Image'
+    changeImage: 'Change Image',
+    imageSettings: 'Image settings',
+    close: 'Close',
+    imageAltLabel: 'Alternative text',
+    imageTitleLabel: 'Hover text'
   }
 };
