@@ -321,3 +321,18 @@
   opacity: 1;
   transition: none;
 }
+
+/* style metadata widgets */
+.tree > .field-name-title.text {
+  padding: 20px;
+  margin-top: 0;
+  background: white;
+}
+
+.toggle-metadata {
+  top: 1.2em;
+}
+
+.h5p-editor-dialog.h5p-metadata-wrapper {
+  left: 3%;
+}
