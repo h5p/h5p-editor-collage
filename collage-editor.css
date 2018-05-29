@@ -323,16 +323,16 @@
 }
 
 /* style metadata widgets */
-.tree > .field-name-title.text {
+.h5p-collage-editor .tree > .field-name-title.text {
   padding: 20px;
   margin-top: 0;
   background: white;
 }
 
-.toggle-metadata {
+.h5p-collage-editor .toggle-metadata {
   top: 1.2em;
 }
 
-.h5p-editor-dialog.h5p-metadata-wrapper {
+.h5p-collage-editor .h5p-editor-dialog.h5p-metadata-wrapper {
   left: 3%;
 }
