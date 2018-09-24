@@ -323,7 +323,7 @@
 }
 
 /* style metadata widgets */
-.h5p-collage-editor .tree > .field-name-title.text {
+.h5p-collage-editor .tree > .field-name-extraTitle.text {
   padding: 20px;
   margin-top: 0;
   background: white;
