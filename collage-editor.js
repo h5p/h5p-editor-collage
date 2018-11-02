@@ -337,22 +337,3 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
 
 // Register widget
 H5PEditor.widgets.collage = H5PEditor.Collage;
-
-// Add strings for l10n
-H5PEditor.language['H5PEditor.Collage'] = {
-  libraryStrings: {
-    confirmReset: 'Are you sure you wish to change the layout? This will reset the preview.',
-    sameAsSpacing: 'Same as spacing',
-    noFrame: 'No frame',
-    uploadError: 'Unable to upload image. The file is probably to large.',
-    zoomIn: 'Zoom In',
-    zoomOut: 'Zoom Out',
-    noMoreZoom: 'No more zoom',
-    addImage: 'Add Image',
-    changeImage: 'Change Image',
-    imageSettings: 'Image settings',
-    close: 'Close',
-    imageAltLabel: 'Alternative text',
-    imageTitleLabel: 'Hover text'
-  }
-};

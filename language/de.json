@@ -10,8 +10,8 @@
     "addImage": "Bild hinzufügen",
     "changeImage": "Bild wechseln",
     "imageSettings": "Image settings",
-    "close": "Close",
-    "imageAltLabel": "Alternative text",
-    "imageTitleLabel": "Hover text"
-  }  
+    "close": "Schließen",
+    "imageAltLabel": "Alternativer Text",
+    "imageTitleLabel": "Schwebender Text"
+  }
 }
