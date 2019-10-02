@@ -217,9 +217,15 @@
       zoom(0.1);
     });
 
+    const $dialogWrapper = self.$wrapper.closest('.h5p-collage-wrapper');
+
     var $imageSettings = createButton('image-settings', H5PEditor.t('H5PEditor.Collage', 'imageSettings'), function () {
+
       // align dialog with $change button
-      $dialog.css('left',  $changeButton.offset().left);
+      $dialog.css({
+        left: $changeButton.offset().left - $dialogWrapper.offset().left,
+        top: $changeButton.offset().top - $dialogWrapper.offset().top
+      });
 
       // attach dialog to dom
       self.trigger('show-dialog', $dialog);

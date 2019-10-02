@@ -5,11 +5,11 @@
   "author": "Joubel",
   "majorVersion": 0,
   "minorVersion": 3,
-  "patchVersion": 8,
+  "patchVersion": 11,
   "runnable": 0,
   "coreApi": {
     "majorVersion": 1,
-    "minorVersion": 7
+    "minorVersion": 23
   },
   "preloadedJs": [
     {
