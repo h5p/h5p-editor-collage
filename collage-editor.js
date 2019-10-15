@@ -109,7 +109,8 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
      * @returns {H5P.jQuery} Wrapper of the element
      */
     var rangeSelector = function (field, change, step, humanize) {
-      var $itemWrapper = getItemWrapper(field.name, field.label);
+      const rangeId = H5PEditor.getNextFieldId(field);
+      var $itemWrapper = getItemWrapper(field.name, field.label, rangeId);
       var $inner = $('<div/>', {
         'class': 'h5p-collage-inner-wrapper',
         appendTo: $itemWrapper
@@ -117,6 +118,7 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
       var last = humanize(params.options[field.name]);
       $('<input/>', {
         'class': 'h5p-collage-range-input',
+        id: rangeId,
         type: 'range',
         min: field.min,
         max: field.max,
@@ -284,10 +286,10 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
     /**
      * @param {string} name
      * @param {string} [label]
-     * @param {string} [description]
+     * @param {string} [labelFor]
      * @returns {H5P.jQuery}
      */
-    var getItemWrapper = function (name, label) {
+    var getItemWrapper = function (name, label, labelFor) {
       var $itemWrapper = $('<div/>', {
         'class': 'h5p-collage-' + name + '-item',
         appendTo: $wrapper
@@ -296,6 +298,7 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
       if (label) {
         $('<label/>', {
           'class': 'h5peditor-label',
+          'for': labelFor,
           text: label,
           appendTo: $itemWrapper
         });
