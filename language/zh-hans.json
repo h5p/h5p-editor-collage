@@ -12,6 +12,7 @@
     "imageSettings": "图片资讯设定",
     "close": "关闭",
     "imageAltLabel": "替代文字",
-    "imageTitleLabel": "悬停文字"
+    "imageTitleLabel": "悬停文字",
+    "pleaseConfirm": "Please confirm"
   }
 }

@@ -12,6 +12,7 @@
     "imageSettings": "Настройки на изображението",
     "close": "Затваряне",
     "imageAltLabel": "Допълнителен текст",
-    "imageTitleLabel": "Текст под мишката"
+    "imageTitleLabel": "Текст под мишката",
+    "pleaseConfirm": "Please confirm"
   }
 }

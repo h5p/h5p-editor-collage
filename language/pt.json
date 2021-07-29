@@ -12,6 +12,7 @@
     "imageSettings": "Configurações da imagem",
     "close": "Fechar",
     "imageAltLabel": "Texto alternativo",
-    "imageTitleLabel": "Texto ao passar o rato por cima"
+    "imageTitleLabel": "Texto ao passar o rato por cima",
+    "pleaseConfirm": "Please confirm"
   }
 }

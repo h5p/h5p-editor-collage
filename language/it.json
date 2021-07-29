@@ -12,6 +12,7 @@
     "imageSettings": "Impostazioni immagine",
     "close": "Chiudi",
     "imageAltLabel": "Testo alternativo",
-    "imageTitleLabel": "Testo al passaggio del mouse"
+    "imageTitleLabel": "Testo al passaggio del mouse",
+    "pleaseConfirm": "Please confirm"
   }
 }

@@ -12,6 +12,7 @@
     "imageSettings": "Pildi seaded",
     "close": "Sulge",
     "imageAltLabel": "Alternatiivne tekst",
-    "imageTitleLabel": "Hõljuva kursori tekst"
+    "imageTitleLabel": "Hõljuva kursori tekst",
+    "pleaseConfirm": "Please confirm"
   }
 }

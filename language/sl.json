@@ -12,6 +12,7 @@
     "imageSettings": "Nastavitev slike",
     "close": "Zapri",
     "imageAltLabel": "Nadomestno besedilo",
-    "imageTitleLabel": "Besedilo ob preletu miške"
+    "imageTitleLabel": "Besedilo ob preletu miške",
+    "pleaseConfirm": "Please confirm"
   }
 }

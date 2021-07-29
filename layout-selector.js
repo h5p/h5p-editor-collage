@@ -70,15 +70,30 @@
      * @param {string} layout
      */
     var selectLayout = function ($preview, layout) {
-      if ($preview === $selected || (self.warn && !confirm(CollageEditor.t('confirmReset')))) {
+      if ($preview === $selected || (self.warn)) {
         return;
       }
 
-      $selected.removeClass('h5p-collage-selected-layout');
-      $selected = $preview.addClass('h5p-collage-selected-layout');
-      self.warn = false;
+      const confirmationDialog = new H5P.ConfirmationDialog({
+        headerText: CollageEditor.t('pleaseConfirm'),
+        dialogText: CollageEditor.t('confirmReset'),
+        cancelText: H5PEditor.t('core', 'cancel'),
+        confirmText: H5PEditor.t('core', 'ok'),
+      }).appendTo(document.body);
 
-      self.trigger('layoutChanged', layout);
+      confirmationDialog.show();
+
+      confirmationDialog.on('canceled', () => {
+        return;
+      });
+
+      confirmationDialog.on('confirmed', () => {
+        $selected.removeClass('h5p-collage-selected-layout');
+        $selected = $preview.addClass('h5p-collage-selected-layout');
+        self.warn = false;
+
+        self.trigger('layoutChanged', layout);
+      });
     };
 
     // Add options

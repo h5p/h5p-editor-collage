@@ -12,6 +12,7 @@
     "imageSettings": "Paramètres de l'image",
     "close": "Fermer",
     "imageAltLabel": "Texte alternatif",
-    "imageTitleLabel": "Texte en survollement"
+    "imageTitleLabel": "Texte en survollement",
+    "pleaseConfirm": "Please confirm"
   }
 }
