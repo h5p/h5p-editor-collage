@@ -74,14 +74,12 @@
         return;
       }
 
-      const confirmationDialog = new H5P.ConfirmationDialog({
+      const confirmationDialog = CollageEditor.showConfirmationDialog({
         headerText: CollageEditor.t('pleaseConfirm'),
         dialogText: CollageEditor.t('confirmReset'),
         cancelText: H5PEditor.t('core', 'cancel'),
         confirmText: H5PEditor.t('core', 'ok'),
-      }).appendTo(document.body);
-
-      confirmationDialog.show();
+      });
 
       confirmationDialog.on('canceled', () => {
         return;
