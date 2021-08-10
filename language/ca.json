@@ -12,6 +12,7 @@
     "imageSettings": "Configuració de la imatge",
     "close": "Tancar[close]",
     "imageAltLabel": "Text alternatiu",
-    "imageTitleLabel": "Text que es mostra en passar el cursor per sobre"
+    "imageTitleLabel": "Text que es mostra en passar el cursor per sobre",
+    "pleaseConfirm": "Please confirm"
   }
 }

@@ -9,9 +9,10 @@
     "noMoreZoom": "Žádné další přiblížení",
     "addImage": "Přidat obrázek",
     "changeImage": "Změnit obrázek",
-    "imageSettings": "Nastavení  obrázku",
+    "imageSettings": "Nastavení obrázku",
     "close": "Zavřít",
     "imageAltLabel": "Alternativní text",
-    "imageTitleLabel": "Najet kurzorem na text"
+    "imageTitleLabel": "Najet kurzorem na text",
+    "pleaseConfirm": "Please confirm"
   }
 }

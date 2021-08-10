@@ -12,6 +12,7 @@
     "imageSettings": "Irudiaren ezarpenak",
     "close": "Itxi",
     "imageAltLabel": "Ordezko testua",
-    "imageTitleLabel": "Desplazamendu testua"
+    "imageTitleLabel": "Desplazamendu testua",
+    "pleaseConfirm": "Please confirm"
   }
 }

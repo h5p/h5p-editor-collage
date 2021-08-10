@@ -9,9 +9,10 @@
     "noMoreZoom": "No hay más acercamiento",
     "addImage": "Añadir Imagen",
     "changeImage": "Cambiar Imagen",
-    "imageSettings": "Ajustes de Imagen",
+    "imageSettings": "Configuraciones de Imagen",
     "close": "Cerrar",
     "imageAltLabel": "Texto alternativo",
-    "imageTitleLabel": "Texto al pasar ratón encima"
+    "imageTitleLabel": "Texto al pasar ratón encima",
+    "pleaseConfirm": "Please confirm"
   }
 }

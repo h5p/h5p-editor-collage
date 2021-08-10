@@ -12,6 +12,7 @@
     "imageSettings": "Ρυθμίσεις εικόνας",
     "close": "Κλείσιμο",
     "imageAltLabel": "Εναλλακτικό κείμενο",
-    "imageTitleLabel": "Επεξηγηματικό κείμενο"
+    "imageTitleLabel": "Επεξηγηματικό κείμενο",
+    "pleaseConfirm": "Please confirm"
   }
 }

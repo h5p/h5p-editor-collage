@@ -12,6 +12,7 @@
     "imageSettings": "Bildinställningar",
     "close": "Stäng",
     "imageAltLabel": "Alternativ text",
-    "imageTitleLabel": "Hovringstext"
+    "imageTitleLabel": "Hovringstext",
+    "pleaseConfirm": "Please confirm"
   }
 }

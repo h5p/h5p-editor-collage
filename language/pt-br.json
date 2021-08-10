@@ -12,6 +12,7 @@
     "imageSettings": "Configurações da imagem",
     "close": "Fechar",
     "imageAltLabel": "Texto alternativo",
-    "imageTitleLabel": "Texto pairado"
+    "imageTitleLabel": "Texto pairado",
+    "pleaseConfirm": "Please confirm"
   }
 }
