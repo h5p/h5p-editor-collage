@@ -12,6 +12,7 @@
     "imageSettings": "Configuración da imaxe",
     "close": "Pechar",
     "imageAltLabel": "Texto alternativo",
-    "imageTitleLabel": "Texto baixo o cursor"
+    "imageTitleLabel": "Texto baixo o cursor",
+    "pleaseConfirm": "Please confirm"
   }
 }

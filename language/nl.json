@@ -12,6 +12,7 @@
     "imageSettings": "Afbeelding instellingen",
     "close": "Sluiten",
     "imageAltLabel": "Alternatieve tekst",
-    "imageTitleLabel": "Hover tekst"
+    "imageTitleLabel": "Hover tekst",
+    "pleaseConfirm": "Please confirm"
   }
 }

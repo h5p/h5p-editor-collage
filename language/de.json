@@ -12,6 +12,7 @@
     "imageSettings": "Bildeinstellungen",
     "close": "Schließen",
     "imageAltLabel": "Alternativtext",
-    "imageTitleLabel": "Text beim Darüberfahren mit Maus"
+    "imageTitleLabel": "Text beim Darüberfahren mit Maus",
+    "pleaseConfirm": "Please confirm"
   }
 }

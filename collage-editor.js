@@ -319,6 +319,20 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
     return H5PEditor.t('H5PEditor.Collage', key, placeholders);
   };
 
+
+  /**
+   * Add confirmation dialog
+   * @param {object} dialogOptions Dialog options.
+   * @returns {HTMLElement} confirmationDialog
+   */
+  CollageEditor.showConfirmationDialog = function (dialogOptions) {
+    const confirmationDialog = new H5P.ConfirmationDialog(dialogOptions)
+      .appendTo(document.body);
+
+    confirmationDialog.show();
+    return confirmationDialog;
+  };
+
   /**
    * Look for field with given name in given collection.
    *

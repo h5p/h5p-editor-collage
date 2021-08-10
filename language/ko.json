@@ -12,6 +12,7 @@
     "imageSettings": "이미지 설정",
     "close": "닫기",
     "imageAltLabel": "대체 텍스트",
-    "imageTitleLabel": "호버 텍스트"
+    "imageTitleLabel": "호버 텍스트",
+    "pleaseConfirm": "Please confirm"
   }
 }
