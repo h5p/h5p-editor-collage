@@ -325,11 +325,11 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
    * @param {object} dialogOptions Dialog options.
    * @returns {HTMLElement} confirmationDialog
    */
-  CollageEditor.showConfirmationDialog = function (dialogOptions) {
+  CollageEditor.showConfirmationDialog = function ($wrapper, dialogOptions) {
     const confirmationDialog = new H5P.ConfirmationDialog(dialogOptions)
       .appendTo(document.body);
 
-    confirmationDialog.show();
+    confirmationDialog.show($wrapper.offset().top);
     return confirmationDialog;
   };
 

@@ -82,13 +82,13 @@
       }
 
       if (self.warn) {
-        const confirmationDialog = CollageEditor.showConfirmationDialog({
+        const confirmationDialog = CollageEditor.showConfirmationDialog($wrapper, {
           headerText: CollageEditor.t('pleaseConfirm'),
           dialogText: CollageEditor.t('confirmReset'),
           cancelText: H5PEditor.t('core', 'cancel'),
           confirmText: H5PEditor.t('core', 'ok'),
         });
-  
+
         confirmationDialog.on('canceled', () => {
           return;
         });

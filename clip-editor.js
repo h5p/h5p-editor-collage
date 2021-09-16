@@ -92,7 +92,7 @@
         self.$wrapper.removeClass('h5p-collage-loading').addClass('h5p-collage-empty');
         $changeButton.attr('aria-label', H5PEditor.t('H5PEditor.Collage', 'addImage'));
 
-        CollageEditor.showConfirmationDialog({
+        CollageEditor.showConfirmationDialog(self.$wrapper, {
           headerText: H5PEditor.t('core', 'uploadError'),
           dialogText: CollageEditor.t('uploadError'),
           confirmText: H5PEditor.t('core', 'ok'),
