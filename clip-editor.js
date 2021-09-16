@@ -98,6 +98,9 @@
           confirmText: H5PEditor.t('core', 'ok'),
         });
       }
+      if (self.content.image === null) {
+        delete self.content.image; // Prevent validation issues when saving
+      }
     });
 
     /**
