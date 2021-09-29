@@ -1,6 +1,6 @@
 {
   "libraryStrings": {
-    "confirmReset": "确定要变更版型？这会重置预览设定喔！",
+    "confirmReset": "确定要改变布局吗？这将重置预览设定。",
     "sameAsSpacing": "与间距同宽",
     "noFrame": "不加边框",
     "uploadError": "无法上传图片，档案可能太大了。",
@@ -13,6 +13,6 @@
     "close": "关闭",
     "imageAltLabel": "替代文字",
     "imageTitleLabel": "悬停文字",
-    "pleaseConfirm": "Please confirm"
+    "pleaseConfirm": "请确认"
   }
 }
