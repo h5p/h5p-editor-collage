@@ -13,6 +13,7 @@
     "imageTitleLabel": "Hover text",
     "pleaseConfirm": "Please confirm",
     "confirmReset": "Are you sure you wish to change the layout? This will reset the preview.",
-    "uploadError": "Unable to upload image. The file is probably too large."
+    "uploadError": "Unable to upload image. The file is probably too large.",
+    "metadata": "Metadata settings"
   }
 }

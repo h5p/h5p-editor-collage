@@ -13,6 +13,7 @@
     "close": "Afsluiten",
     "imageAltLabel": "Alternatieve tekst",
     "imageTitleLabel": "Hover tekst",
-    "pleaseConfirm": "Bevestig alstublieft"
+    "pleaseConfirm": "Bevestig alstublieft",
+    "metadata": "Metadata settings"
   }
 }

@@ -13,6 +13,7 @@
     "imageTitleLabel": "Kursora novietošanas teksts",
     "pleaseConfirm": "Lūdzu apstipriniet",
     "uploadError": "Nevar augšupielādēt attēlu. Fails, iespējams, ir pārāk liels.",
-    "zoomIn": "Pietuvināt"
+    "zoomIn": "Pietuvināt",
+    "metadata": "Metadata settings"
   }
 }

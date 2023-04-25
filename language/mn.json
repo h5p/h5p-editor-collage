@@ -13,6 +13,7 @@
     "close": "Хаах",
     "imageAltLabel": "Альтернатив текст",
     "imageTitleLabel": "Гарч ирах текст",
-    "pleaseConfirm": "Баталгаажуулна уу"
+    "pleaseConfirm": "Баталгаажуулна уу",
+    "metadata": "Metadata settings"
   }
 }

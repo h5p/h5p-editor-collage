@@ -58,6 +58,15 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
           $wrapper.find('.h5p-collage-wrapper').append($dialog);
         }
       });
+
+      // attach metadata dialog
+      clip.on('show-metadata-dialog', (event) => {
+        const $metadataDialog = event.data;
+
+        if ($metadataDialog.parent().length === 0) {
+          $wrapper.find('.h5p-collage-wrapper').append($metadataDialog);
+        }
+      });
     });
 
     H5P.$window.on('resize', function () {

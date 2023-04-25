@@ -13,6 +13,7 @@
     "close": "Zapri",
     "imageAltLabel": "Nadomestno besedilo",
     "imageTitleLabel": "Besedilo ob preletu miške",
-    "pleaseConfirm": "Please confirm"
+    "pleaseConfirm": "Please confirm",
+    "metadata": "Metadata settings"
   }
 }
