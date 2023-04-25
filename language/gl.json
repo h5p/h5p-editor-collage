@@ -13,6 +13,7 @@
     "close": "Pechar",
     "imageAltLabel": "Texto alternativo",
     "imageTitleLabel": "Texto baixo o cursor",
-    "pleaseConfirm": "Por favor, confirma"
+    "pleaseConfirm": "Por favor, confirma",
+    "metadata": "Metadata settings"
   }
 }

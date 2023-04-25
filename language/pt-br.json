@@ -13,6 +13,7 @@
     "close": "Fechar",
     "imageAltLabel": "Texto alternativo",
     "imageTitleLabel": "Texto da dica",
-    "pleaseConfirm": "Por favor, confirme"
+    "pleaseConfirm": "Por favor, confirme",
+    "metadata": "Metadata settings"
   }
 }

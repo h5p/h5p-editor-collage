@@ -13,6 +13,7 @@
     "close": "Stäng",
     "imageAltLabel": "Alternativ text",
     "imageTitleLabel": "Hovringstext",
-    "pleaseConfirm": "Bekräfta"
+    "pleaseConfirm": "Bekräfta",
+    "metadata": "Metadata settings"
   }
 }
