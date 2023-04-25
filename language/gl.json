@@ -10,9 +10,9 @@
     "addImage": "Engadir imaxe",
     "changeImage": "Cambiar imaxe",
     "imageSettings": "Configuración da imaxe",
-    "close": "Close",
+    "close": "Pechar",
     "imageAltLabel": "Texto alternativo",
     "imageTitleLabel": "Texto baixo o cursor",
-    "pleaseConfirm": "Please confirm"
+    "pleaseConfirm": "Por favor, confirma"
   }
 }
