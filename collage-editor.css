@@ -145,13 +145,19 @@
 .h5p-collage-zoom-out:hover,
 .h5p-collage-zoom-out:focus,
 .h5p-collage-change-image:hover,
-.h5p-collage-change-image:focus {
+.h5p-collage-change-image:focus,
+.h5p-collage-image-settings:hover,
+.h5p-collage-image-settings:focus,
+.h5p-collage-metadata-settings:hover,
+.h5p-collage-metadata-settings:focus {
   background: rgba(0,0,0,0.85);
   color: #f0f0f0;
 }
 .h5p-collage-zoom-in:active,
 .h5p-collage-zoom-out:active,
-.h5p-collage-change-image:active {
+.h5p-collage-change-image:active,
+.h5p-collage-image-settings:active,
+.h5p-collage-metadata-settings:active {
   color: #c0c0c0;
 }
 .h5p-collage-empty .h5p-collage-change-image {
