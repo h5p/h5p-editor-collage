@@ -205,6 +205,9 @@
       });
 
       if (this.content.image) {
+        // Could be old content without copyright field
+        this.content.image.copyright = this.content.image.copyright ?? {};
+
         // Using H5PEditor.File.addCopyright to create fields for params.
         H5PEditor.File.addCopyright(this.content.image, $metadataDialog, () => {});
         delete this.content.image.children;
