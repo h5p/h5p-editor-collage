@@ -189,6 +189,69 @@
     };
 
     /**
+     * Create metadata dialog.
+     */
+    const createMetadataDialog = () => {
+      const imageAltFieldId = 'image-alt-field-' + this.instanceIndex;
+      const imageNameFieldId = 'image-name-field-' + this.instanceIndex;
+
+      const $metadataDialog = $('<div role="dialog" class="h5p-editor-dialog">' +
+        '<a href="#" class="h5p-close" title="' + ns.t('H5PEditor.Collage', 'close') + '"></a>' +
+      '</div>');
+
+      $metadataDialog.find('.h5p-close').click(() => {
+        $metadataDialog.toggleClass('h5p-open');
+        return false;
+      });
+
+      if (this.content.image) {
+        // Could be old content without copyright field
+        this.content.image.copyright = this.content.image.copyright ?? {};
+
+        // Using H5PEditor.File.addCopyright to create fields for params.
+        H5PEditor.File.addCopyright(this.content.image, $metadataDialog, () => {});
+        delete this.content.image.children;
+      }
+
+      return $metadataDialog;
+    };
+
+    /**
+     * Add metadata dialog. Image needs to be set.
+     * @private
+     */
+    const addMetadataDialog = () => {
+      const $metadataDialog = createMetadataDialog();
+      createButton(
+        'metadata-settings',
+        H5PEditor.t('H5PEditor.Collage', 'metadata'),
+        () => {
+          const $collageWrapper = $dialogWrapper;
+          const $collageEditorWrapper = $collageWrapper.closest('.h5p-collage-editor-wrapper');
+
+          // align dialog with $change button
+          $metadataDialog.css({
+            left: $changeButton.offset().left - $dialogWrapper.offset().left,
+            top: $changeButton.offset().top - $dialogWrapper.offset().top
+          });
+
+          // attach dialog to dom and show to be able to get height
+          this.trigger('show-metadata-dialog', $metadataDialog);
+          $metadataDialog.toggleClass('h5p-open');
+
+          // Ensure that dialog doesn't overflow. This should be fixed in general
+          const wrapperHeight = $collageWrapper.height() + parseFloat($collageWrapper.css('border-top'));
+          const dialogBottom = parseFloat($metadataDialog.css('top')) + $metadataDialog.height();
+          const min = -parseFloat($collageWrapper.css('border-top')) + $collageEditorWrapper.offset().top - $collageWrapper.offset().top;
+          if (dialogBottom > wrapperHeight) {
+            const newTop = Math.max(min, parseFloat($metadataDialog.css('top')) + wrapperHeight - dialogBottom);
+            $metadataDialog.css('top', newTop);
+          }
+        }
+      );
+    };
+
+    /**
      * Help display the correct button state.
      * @private
      */
@@ -241,6 +304,11 @@
       // show
       $dialog.toggleClass('h5p-open');
     }).toggleClass('warning', self.content.alt && self.content.alt.length === 0);
+
+    // If no image parameters, metadata dialog will be added when image set
+    if (self.content.image) {
+      addMetadataDialog();
+    }
 
     var $dialog = createDialog();
 
@@ -373,11 +441,15 @@
      */
     var update = function (newImage) {
       self.content.image = newImage;
+      self.content.image.copyright = {}; // Sanitize for H5PEditor.File.addCopyright
       self.content.scale = 1;
       self.content.offset = {
         top: 0,
         left: 0
       };
+
+      addMetadataDialog();
+
       self.load();
     };
 

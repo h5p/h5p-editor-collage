@@ -21,6 +21,7 @@
 }
 .h5p-collage-change-image,
 .h5p-collage-image-settings,
+.h5p-collage-metadata-settings,
 .h5p-collage-zoom-in,
 .h5p-collage-zoom-out {
   font-size: 16px;
@@ -43,7 +44,8 @@
 .h5p-collage-change-image:after,
 .h5p-collage-zoom-out:after,
 .h5p-collage-zoom-in:after,
-.h5p-collage-image-settings:after {
+.h5p-collage-image-settings:after,
+.h5p-collage-metadata-settings:after {
   font-family: H5PFontAwesome4;
   font-size: 14px;
 }
@@ -72,6 +74,8 @@
 .h5p-collage-loading .h5p-collage-zoom-out,
 .h5p-collage-empty .h5p-collage-image-settings,
 .h5p-collage-loading .h5p-collage-image-settings,
+.h5p-collage-empty .h5p-collage-metadata-settings,
+.h5p-collage-loading .h5p-collage-metadata-settings
 .h5p-collage-loading .h5p-collage-change-image {
   visibility: hidden;
 }
@@ -93,9 +97,18 @@
   display: block;
 }
 
+.h5p-collage-metadata-settings {
+  padding-top: 1px;
+  left: 7.63em;
+}
+
+.h5p-collage-metadata-settings:after {
+  content: "\f02c";
+}
+
 .h5p-collage .h5p-editor-dialog.h5p-open {
   top: 0;
-  margin: 1em 0 0 0;
+  margin: 0;
 }
 
 .h5p-collage .h5p-editor-dialog.h5p-open .content {
@@ -112,6 +125,14 @@
   font-size: inherit;
 }
 
+.h5p-collage .h5p-editor-dialog .field-name-copyright .content {
+  width: 300px;
+}
+
+.h5p-collage .h5p-editor-dialog .field-name-copyright .content .h5peditor-select {
+  max-width: 100%;
+}
+
 .h5p-collage-change-image {
   left: 0.25em;
   padding-bottom: 1px;
@@ -124,13 +145,19 @@
 .h5p-collage-zoom-out:hover,
 .h5p-collage-zoom-out:focus,
 .h5p-collage-change-image:hover,
-.h5p-collage-change-image:focus {
+.h5p-collage-change-image:focus,
+.h5p-collage-image-settings:hover,
+.h5p-collage-image-settings:focus,
+.h5p-collage-metadata-settings:hover,
+.h5p-collage-metadata-settings:focus {
   background: rgba(0,0,0,0.85);
   color: #f0f0f0;
 }
 .h5p-collage-zoom-in:active,
 .h5p-collage-zoom-out:active,
-.h5p-collage-change-image:active {
+.h5p-collage-change-image:active,
+.h5p-collage-image-settings:active,
+.h5p-collage-metadata-settings:active {
   color: #c0c0c0;
 }
 .h5p-collage-empty .h5p-collage-change-image {

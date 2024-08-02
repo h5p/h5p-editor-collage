@@ -13,6 +13,7 @@
     "close": "Itxi",
     "imageAltLabel": "Ordezko testua",
     "imageTitleLabel": "Desplazamendu testua",
-    "pleaseConfirm": "Baieztatu ezazu mesedez"
+    "pleaseConfirm": "Baieztatu ezazu mesedez",
+    "metadata": "Metadata settings"
   }
 }

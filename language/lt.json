@@ -13,6 +13,7 @@
     "close": "Uždaryti",
     "imageAltLabel": "Alternatyvus tekstas",
     "imageTitleLabel": "Pažymėtas tekstas",
-    "pleaseConfirm": "Prašau patvirtinti"
+    "pleaseConfirm": "Prašau patvirtinti",
+    "metadata": "Metadata settings"
   }
 }
