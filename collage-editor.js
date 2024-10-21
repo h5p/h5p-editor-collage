@@ -67,6 +67,11 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
           $wrapper.find('.h5p-collage-wrapper').append($metadataDialog);
         }
       });
+
+      // react to asset (image) finished asyncronous loading
+      clip.on('loaded', function () {
+        collage.trigger('resize');
+      });
     });
 
     H5P.$window.on('resize', function () {
