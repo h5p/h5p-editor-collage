@@ -1,0 +1,19 @@
+{
+  "libraryStrings": {
+    "confirmReset": "Sunteți sigur că doriți să schimbați aspectul? Acest lucru va reseta previzualizarea.",
+    "sameAsSpacing": "Identic cu spațierea",
+    "noFrame": "Fără cadru",
+    "uploadError": "Nu s-a putut încărca imaginea. Fișierul este probabil prea mare.",
+    "zoomIn": "Mărește",
+    "zoomOut": "Micșorează",
+    "noMoreZoom": "Zoom maxim atins",
+    "addImage": "Adaugă imagine",
+    "changeImage": "Schimbă imaginea",
+    "imageSettings": "Setări imagine",
+    "close": "Închide",
+    "imageAltLabel": "Text alternativ",
+    "imageTitleLabel": "Text la survolare",
+    "pleaseConfirm": "Vă rugăm confirmați",
+    "metadata": "Setări metadate"
+  }
+}
