@@ -214,17 +214,13 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
       });
 
       // Attach Collage preview
-      var $collageWrapper = getItemWrapper(field.name, field.label);
+      var $collageWrapper = getItemWrapper(field.name, field.label, undefined, field.description);
+      
       var $preview = $('<div/>', {
         'class': 'h5p-collage-preview',
         appendTo: $collageWrapper
       });
       collage.attach($preview);
-      $('<div/>', {
-        'class': 'h5peditor-field-description',
-        text: field.description,
-        insertBefore: $preview
-      });
 
       // Keep track of all adjustments options so that they may be aligned
       var adjustmentOptions = [];
@@ -303,24 +299,55 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
      * @param {string} [labelFor]
      * @returns {H5P.jQuery}
      */
-    var getItemWrapper = function (name, label, labelFor) {
+    var getItemWrapper = function (name, label, labelFor, desctription) {
       var $itemWrapper = $('<div/>', {
         'class': 'h5p-collage-' + name + '-item',
         appendTo: $wrapper
       });
 
       if (label) {
-        $('<label/>', {
-          'class': 'h5peditor-label',
-          'for': labelFor,
-          text: label,
-          appendTo: $itemWrapper
-        });
+        var $label = createLabel(label, labelFor);
+        if (desctription !== undefined) {
+          var $labelWrapper = $('<div/>', {
+            'class': 'h5peditor-label-wrapper',
+            appendTo: $itemWrapper
+          });
+          $label.appendTo($labelWrapper);
+          var $infoButton = $('<button/>', {
+            type: 'button',
+            'class': 'h5peditor-field-description-icon',
+            'aria-label': H5PEditor.t('core', 'descriptionIconAriaLabel')          
+          }).appendTo($labelWrapper);
+          if ($infoButton && H5P?.Tooltip) {
+            H5P.Tooltip($infoButton[0], {
+              text: field.description,
+              position: 'right',
+            });
+          }
+        }
+        else {
+          $label.appendTo($itemWrapper);
+        }
       }
 
       return $itemWrapper;
     };
   }
+
+   /**
+   * Create generic editor label.
+   *
+   * @private
+   * @param {String} text
+   * @returns {jQuery}
+   */
+  var createLabel = function (label, labelFor) {
+    return $('<label/>', {
+      'class': 'h5peditor-label',
+      'for': labelFor,
+      text: label,
+    });
+  };
 
   /**
    * Get translations from the CollageEditor namespace.
