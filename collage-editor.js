@@ -299,7 +299,7 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
      * @param {string} [labelFor]
      * @returns {H5P.jQuery}
      */
-    var getItemWrapper = function (name, label, labelFor, desctription) {
+    var getItemWrapper = function (name, label, labelFor, description) {
       var $itemWrapper = $('<div/>', {
         'class': 'h5p-collage-' + name + '-item',
         appendTo: $wrapper
@@ -307,7 +307,7 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
 
       if (label) {
         var $label = createLabel(label, labelFor);
-        if (desctription !== undefined) {
+        if (description !== undefined) {
           var $labelWrapper = $('<div/>', {
             'class': 'h5peditor-label-wrapper',
             appendTo: $itemWrapper
