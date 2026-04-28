@@ -313,18 +313,9 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
             appendTo: $itemWrapper
           });
           $label.appendTo($labelWrapper);
-          var $infoButton = $('<button/>', {
-            type: 'button',
-            'class': 'h5peditor-field-description-icon',
-            'aria-label': H5PEditor.t('core', 'descriptionIconAriaLabel')          
-          }).appendTo($labelWrapper);
-          if ($infoButton && H5P?.Tooltip) {
-            H5P.Tooltip($infoButton[0], {
-              text: field.description,
-              position: 'right',
-            });
+          var $infoButton =  $(ns.createDescriptionIcon(description));
+          $infoButton.appendTo($labelWrapper);
           }
-        }
         else {
           $label.appendTo($itemWrapper);
         }
