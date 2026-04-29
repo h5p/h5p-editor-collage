@@ -306,39 +306,16 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
       });
 
       if (label) {
-        var $label = createLabel(label, labelFor);
-        if (description !== undefined) {
-          var $labelWrapper = $('<div/>', {
-            'class': 'h5peditor-label-wrapper',
-            appendTo: $itemWrapper
-          });
-          $label.appendTo($labelWrapper);
-          var $infoButton =  $(ns.createDescriptionIcon(description));
-          $infoButton.appendTo($labelWrapper);
-          }
-        else {
-          $label.appendTo($itemWrapper);
-        }
+        $(H5PEditor.createLabel(
+          { label, description },
+          '',
+          labelFor
+        )).appendTo($itemWrapper);
       }
 
       return $itemWrapper;
     };
   }
-
-   /**
-   * Create generic editor label.
-   *
-   * @private
-   * @param {String} text
-   * @returns {jQuery}
-   */
-  var createLabel = function (label, labelFor) {
-    return $('<label/>', {
-      'class': 'h5peditor-label',
-      'for': labelFor,
-      text: label,
-    });
-  };
 
   /**
    * Get translations from the CollageEditor namespace.
