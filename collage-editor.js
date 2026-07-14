@@ -214,17 +214,13 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
       });
 
       // Attach Collage preview
-      var $collageWrapper = getItemWrapper(field.name, field.label);
+      var $collageWrapper = getItemWrapper(field.name, field.label, undefined, field.description);
+      
       var $preview = $('<div/>', {
         'class': 'h5p-collage-preview',
         appendTo: $collageWrapper
       });
       collage.attach($preview);
-      $('<div/>', {
-        'class': 'h5peditor-field-description',
-        text: field.description,
-        insertBefore: $preview
-      });
 
       // Keep track of all adjustments options so that they may be aligned
       var adjustmentOptions = [];
@@ -303,19 +299,18 @@ H5PEditor.Collage = (function ($, contentId, Collage) {
      * @param {string} [labelFor]
      * @returns {H5P.jQuery}
      */
-    var getItemWrapper = function (name, label, labelFor) {
+    var getItemWrapper = function (name, label, labelFor, description) {
       var $itemWrapper = $('<div/>', {
         'class': 'h5p-collage-' + name + '-item',
         appendTo: $wrapper
       });
 
       if (label) {
-        $('<label/>', {
-          'class': 'h5peditor-label',
-          'for': labelFor,
-          text: label,
-          appendTo: $itemWrapper
-        });
+        $(H5PEditor.createLabel(
+          { label, description },
+          '',
+          labelFor
+        )).appendTo($itemWrapper);
       }
 
       return $itemWrapper;
